@@ -78,21 +78,21 @@ class TroopStore {
 
   validateMoveTroop(id: string | number, position: Position): string | null {
     const troop = this.getTroop(id);
-    if (!troop) return "Troop not found";
+    if (!troop) return "Troupe non trouvée";
   
     const distance = calculateDistance(troop.position, position);
     const unitConfig = UNITS_CONFIG[troop.type];
   
     if (distance > unitConfig.vitDep) {
-      return "Move exceeds unit's movement points";
+      return "Le déplacement dépasse les points de mouvement de l'unité";
     }
   
-    // Check for existing ghost positions
+    // Vérifier les positions fantômes existantes
     const ghostPositionsJS = toJS(mapStore.ghostPositions);
     for (const [team, units] of Object.entries(ghostPositionsJS)) {
       for (const [unitId, pos] of Object.entries(units as Record<string, Position>)) {
         if (pos.x === position.x && pos.y === position.y) {
-          return "Move refused: a ghost position already exists on the target cell";
+          return "Déplacement refusé : une position fantôme existe déjà sur la case cible";
         }
       }
     }
@@ -103,16 +103,17 @@ class TroopStore {
   
     const allyTroop = targetCellTroops.find((t) => t.civ === troop.civ);
     if (allyTroop) {
-      return "Move refused: ally unit present on the target cell";
+      return "Déplacement refusé : une unité alliée est présente sur la case cible";
     }
   
     const enemyTroops = targetCellTroops.filter((t) => t.civ !== troop.civ);
     if (enemyTroops.length > 1) {
-      return "Move refused: more than one enemy unit present on the target cell";
+      return "Déplacement refusé : plus d'une unité ennemie présente sur la case cible";
     }
   
     return null;
   }
+  
   
   
 

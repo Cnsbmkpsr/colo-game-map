@@ -1,6 +1,7 @@
 // realTimeDBService.ts
 import { get, getDatabase, onValue, ref, remove, set } from "firebase/database";
 import { app } from "../../firebase";
+import { Position } from "../../features/game/types";
 
 const db = getDatabase(app);
 
@@ -63,14 +64,23 @@ export class RealtimeService {
     }
   }
 
-  async fetchGhostPositions(team: string): Promise<Record<string, { x: number, y: number }> | null> {
+  async fetchGhostPositions(team: string): Promise<Record<string, Record<string, Position>> | null> {
     try {
       const ghostPositionRef = ref(db, `ghostPositions/${team}`);
       console.log(`Fetching ghost positions from path: ghostPositions/${team}`);
       const docSnap = await get(ghostPositionRef);
       if (docSnap.exists()) {
         console.log("Ghost positions fetched successfully:", docSnap.val());
-        return docSnap.val();
+        const rawPositions: Record<string, { x: number; y: number }> = docSnap.val();
+        const convertedPositions: Record<string, Record<string, Position>> = {
+          [team]: Object.fromEntries(
+            Object.entries(rawPositions).map(([unitId, pos]) => [
+              unitId,
+              { x: pos.x, y: pos.y },
+            ])
+          ),
+        };
+        return convertedPositions;
       } else {
         console.log("No ghost positions found for team:", team);
         return null;
@@ -80,6 +90,7 @@ export class RealtimeService {
       return null;
     }
   }
+  
 
   async clearGhostPositions(team: string): Promise<void> {
     try {

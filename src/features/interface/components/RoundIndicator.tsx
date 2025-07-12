@@ -23,25 +23,31 @@ const RoundIndicator = () => {
 
   const isTeamTurn = adminStore.loggedInTeam === adminStore.activeTeam;
 
-  console.log(adminStore.loggedInTeam)
-  console.log(adminStore.activeTeam)
-
   useEffect(() => {
-    // Load state from backend on component mount
     adminStore.loadState();
     const interval = setInterval(() => {
-      adminStore.loadState(); // Periodically sync state
+      adminStore.loadState();
     }, 5000);
     return () => clearInterval(interval);
   }, []);
 
   return (
-    <Box position="absolute" top="0" left="50%" transform="translateX(-50%)" width="40%" p={4} bg="white" borderRadius="md" boxShadow="md">
+    <Box
+      position="fixed"
+      top="0"
+      width={{ base: '100%', md: '50%' }} // Full width on mobile, 50% width on non-mobile
+      left={{ base: '0', md: '25%' }} // Centered on non-mobile
+      bg="white"
+      p={4}
+      borderRadius="md"
+      boxShadow="md"
+      transform="translateX(0)" // Ensure it's centered on mobile
+    >
       <VStack spacing={2} alignItems="stretch">
-        <Text fontSize="xl" fontWeight="bold">{`Current Team: ${adminStore.activeTeam}`}</Text>
+        <Text fontSize="xl" fontWeight="bold">{`L'équipe qui joue est: ${adminStore.activeTeam}`}</Text>
         {isTeamTurn && <Text fontSize="lg" color="green.500">{`C'est à ton équipe de jouer !`}</Text>}
         <Progress value={(timeRemaining / CONFIG.roundDuration) * 100} size="lg" colorScheme="blue" />
-        <Text alignSelf="flex-end">{`Time Remaining: ${Math.ceil(timeRemaining / 1000)}s`}</Text>
+        <Text alignSelf="flex-end">{`Temps restant: ${Math.ceil(timeRemaining / 1000)}s`}</Text>
       </VStack>
     </Box>
   );

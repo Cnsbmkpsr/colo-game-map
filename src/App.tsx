@@ -11,6 +11,8 @@ import { factionStore } from "./features/game/factionStore";
 import { troopStore } from "./features/game/troopStore";
 import { adminStore } from "./features/interface/adminStore";
 
+
+
 function App() {
   useEffect(() => {
     (async function () {
@@ -32,10 +34,6 @@ function App() {
   useEffect(() => {
     const handleKeyDown = async (event: KeyboardEvent) => {
       if (!adminStore.getAdmin) return;
-
-      if (event.key.toLowerCase() === "a") {
-        factionStore.selectFaction("AdeptusMechanicus");
-      }
       if (event.key.toLowerCase() === "n") {
         factionStore.selectFaction("Necrons");
       }
@@ -89,7 +87,9 @@ function App() {
         <Scene />
 
         {/* Three JS Elements */}
+        {/* eslint-disable-next-line react/no-unknown-property */}
         <directionalLight position={[0, 10, 0]} intensity={1.2} />
+        {/* eslint-disable-next-line react/no-unknown-property */}
         <ambientLight intensity={0.5} />
         <OrbitControls target={new Vector3(5, 0, 5)} />
       </Canvas>

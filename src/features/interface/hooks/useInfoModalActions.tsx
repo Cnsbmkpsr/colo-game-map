@@ -141,31 +141,6 @@ const useInfoModalActions = () => {
     mapStore.refreshSelectedCell();
   };
 
-  const handleCreateMob = (pv: number) => {
-
-    const position = mapStore.getSelectedCell?.position;
-
-    if (!position) return;
-
-
-
-    mapStore.updateMap();
-    mapStore.refreshSelectedCell();
-  };
-
-  const handleCreateStructure = (pv: number) => {
-
-    const position = mapStore.getSelectedCell?.position;
-
-    if (!position) return;
-
-
-
-
-    mapStore.updateMap();
-    mapStore.refreshSelectedCell();
-  };
-
   const handleBuyVille = (pv: number) => {
     if (factionStore.getSelectedFaction === null) return;
 
@@ -207,8 +182,6 @@ const useInfoModalActions = () => {
     handleFightTroop,
     handleRemoveLand,
     handleRemoveTroop,
-    handleCreateMob,
-    handleCreateStructure,
     handleBuyVille,
     handleBuyScout,
     handleSetPvs,

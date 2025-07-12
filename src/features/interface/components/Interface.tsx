@@ -41,9 +41,16 @@ const Interface = () => {
           >
             <FactionMenu />
             <CancelActions />
-            <AdminControl />
           </HStack>
           <SaveButton />
+          <Box
+            position="absolute"
+            bottom="2"
+            left="50%"
+            transform="translateX(-50%)"
+          >
+            <AdminControl />
+          </Box>
         </>
       )}
       <PasswordModal

@@ -5,7 +5,7 @@ export const FactionTroopsNames: Record<
   Civilisation,
   Record<TroopTypes, string>
 > = {
-  "Imperium & Mechanicus": {
+  "Imperium": {
     infanterie: "Imperial Guards",
     "Unité blindée": "Imperial Knights",
     "Unité aérienne": "Space Marines",
@@ -41,27 +41,27 @@ export const FactionTroopsStats: Record<
   Civilisation,
   Record<TroopTypes, Omit<Troop, "id" | "position" | "name" | "updatedAt" | "pv">>
 > = {
-  "Imperium & Mechanicus": {
+  "Imperium": {
     infanterie: {
-      civ: "Imperium & Mechanicus",
+      civ: "Imperium",
       vitDep: 1,
       type: "infanterie",
       attack: 10,
     },
     "Unité blindée": {
-      civ: "Imperium & Mechanicus",
+      civ: "Imperium",
       vitDep: 1,
       type: "Unité blindée",
       attack: 20,
     },
     "Unité aérienne": {
-      civ: "Imperium & Mechanicus",
+      civ: "Imperium",
       vitDep: 1,
       type: "Unité aérienne",
       attack: 15,
     },
     structure: {
-      civ: "Imperium & Mechanicus",
+      civ: "Imperium",
       vitDep: 0,
       type: "structure",
       attack: 0,

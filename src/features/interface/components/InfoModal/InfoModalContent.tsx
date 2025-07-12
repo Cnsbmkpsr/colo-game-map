@@ -8,7 +8,6 @@ import InfoModalTroopActions from "./InfoModalTroopActions";
 import InfoModalBuyLandAction from "./InfoModalBuyLandAction";
 import { mapStore } from "../../../map/mapStore";
 import InfoModalTroopTimer from "./InfoModalTroopTimer";
-import InfoModalNeutralActions from "./InfoModalNeutralActions";
 import { troopStore } from "../../../game/troopStore";
 import { landStore } from "../../../game/landStore";
 import { adminStore } from "../../adminStore";
@@ -52,7 +51,7 @@ const InfoModalContent = observer(() => {
 
           {selectedTroop && isTeamTurn && selectedTroop.civ === adminStore.activeTeam && (
             <Button onClick={handleMoveUnit} colorScheme="blue">
-              Move the unit
+              Déplacer l&apos;unitée
             </Button>
           )}
 
@@ -80,8 +79,7 @@ const InfoModalContent = observer(() => {
           />
         )}
 
-      {factionStore.getSelectedFaction !== null &&
-        !troopStore.hasTroopOnSelectedCell && <InfoModalNeutralActions />}
+
     </VStack>
   );
 });

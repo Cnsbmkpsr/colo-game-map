@@ -1,19 +1,19 @@
 import { Civilisation } from "../game/types";
 
 export const CONFIG = {
-  roundDuration: 6000, // 60 seconds in milliseconds
+  roundDuration: 60000, // 60 seconds in milliseconds
   teams: [
-    "Imperium & Mechanicus",
+    "Imperium",
     "Orks",
     "Eldars",
     "Chaos",
     "Necrons",
   ] as Civilisation[],
   teamCredentials: {
-    "Imperium & Mechanicus": { id: "team1", password: "pass1" },
-    "Orks": { id: "team2", password: "pass2" },
-    "Eldars": { id: "team3", password: "pass3" },
-    "Chaos": { id: "team4", password: "pass4" },
-    "Necrons": { id: "team5", password: "pass5" },
+    "Imperium": { id: "team1", password: "fromjapan" },
+    "Orks": { id: "team2", password: "0rks" },
+    "Eldars": { id: "team3", password: "Aabc54321z" },
+    "Chaos": { id: "team4", password: "pommedeterre" },
+    "Necrons": { id: "team5", password: "niké" },
   },
 };

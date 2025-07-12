@@ -11,7 +11,7 @@ class FactionStore {
 
   fetchFactions() {
     this.addFaction({
-      name: "Imperium & Mechanicus",
+      name: "Imperium",
       color: "red",
     });
     this.addFaction({
@@ -20,7 +20,7 @@ class FactionStore {
     });
     this.addFaction({
       name: "Eldars",
-      color: "pink",
+      color: "teal",
     });
     this.addFaction({
       name: "Chaos",
