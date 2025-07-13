@@ -38,12 +38,13 @@ class InfoModalStore {
     // Construct the description based on the cell data
     let troupeDescription = null;
     if (cell.troop) {
-      const { vitDep, pv, attack, type } = cell.troop;
+      const { vitDep, pv, attack, type, civ } = cell.troop;
       troupeDescription = {
         Type: type,
         Vitesse: vitDep,
         PV: pv,
         Attaque: attack,
+        Civilisation: civ,
       };
     }
 
