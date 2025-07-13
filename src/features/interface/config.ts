@@ -11,8 +11,8 @@ export const CONFIG = {
     CIVILISATIONS.LEAGUES_OF_VOTANN,
     CIVILISATIONS.MECHANICUS,
     CIVILISATIONS.TAU_EMPIRE,
-    CIVILISATIONS.CHAOS,
     CIVILISATIONS.TYRANIDS,
+    CIVILISATIONS.CHAOS,
   ] as Civilisation[],
   teamCredentials: {
     [CIVILISATIONS.IMPERIUM]: { id: "team1", password: "team" },

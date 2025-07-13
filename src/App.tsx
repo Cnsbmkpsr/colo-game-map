@@ -48,10 +48,13 @@ function App() {
           factionStore.selectFaction(CIVILISATIONS.TAU_EMPIRE);
           break;
         case "y":
-          factionStore.selectFaction(CIVILISATIONS.TYRANNIDES);
+          factionStore.selectFaction(CIVILISATIONS.TYRANIDS);
           break;
         case "l":
           factionStore.selectFaction(CIVILISATIONS.LEAGUES_OF_VOTANN);
+          break;
+        case "d":
+          factionStore.selectFaction(CIVILISATIONS.MECHANICUS);
           break;
         case "s":
           await mapStore.save();

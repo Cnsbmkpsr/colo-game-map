@@ -14,29 +14,19 @@ const CancelActions = () => {
 
   return (
     <HStack
-      position="absolute"
+      position="fixed"
       left="50%"
-      top="100vh"
-      transform="translate(-50%, -150%)"
+      bottom="8px"
+      transform="translate(-50%, 0)"
       spacing={2}
     >
       {troopStore.getFightingTroop !== undefined && (
-        <Button
-          w="full"
-          color={"black"}
-          bg="red.400"
-          onClick={handleCancelFightTroop}
-        >
+        <Button w="full" colorScheme="red" onClick={handleCancelFightTroop}>
           Cancel fight
         </Button>
       )}
       {troopStore.getIsMoving && (
-        <Button
-          w="full"
-          color={"black"}
-          bg="red.400"
-          onClick={handleCancelMove}
-        >
+        <Button w="full" colorScheme="red" onClick={handleCancelMove}>
           Cancel move
         </Button>
       )}

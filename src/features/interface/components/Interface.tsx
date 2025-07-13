@@ -12,6 +12,7 @@ import TeamLoginModal from "./TeamLoginModal";
 import CurrentFactionCard from "./CurrentFactionCard";
 import { observer } from "mobx-react";
 import { Separator } from "../../../shared/components/separator";
+import MasterSession from "./admin/masterSession";
 
 const Interface = () => {
   const passwordDisclosure = useDisclosure();
@@ -68,18 +69,17 @@ const Interface = () => {
               <GridItem>
                 <SaveButton />
               </GridItem>
+
               <GridItem>
-                <CancelActions />
+                <Separator />
+              </GridItem>
+
+              <GridItem>
+                <MasterSession />
               </GridItem>
             </Grid>
           </Box>
-          {/* <Box
-            position="absolute"
-            bottom="2"
-            left="50%"
-            // transform="translateX(-50%)"
-          >
-          </Box> */}
+          <CancelActions />
         </>
       )}
       <PasswordModal

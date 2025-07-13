@@ -8,7 +8,7 @@ import { mapStore } from "../map/mapStore";
 const passwordCollection = new RealtimeService("password");
 
 class AdminStore {
-  isAdmin = false;
+  isAdmin = true;
   isPaused = true;
   currentTeamIndex = 0;
   activeTeamIndex = 0;
@@ -16,11 +16,15 @@ class AdminStore {
   roundStartTime: number = Date.now();
   remainingTime: number = CONFIG.roundDuration;
   loggedInTeam: Civilisation | null = null;
+  sessionId: string = Math.floor(Math.random() * 1000000).toString(); // Unique session ID for this admin instance
+  leaderSessionId: string = ""; // ID of the session that is currently the master
   private realtimeService: RealtimeService;
+  private leaderSessionIdService: RealtimeService;
 
   constructor() {
     makeAutoObservable(this);
     this.realtimeService = new RealtimeService("adminStore");
+    this.leaderSessionIdService = new RealtimeService("sessionId");
     this.loadState();
   }
 
@@ -34,6 +38,22 @@ class AdminStore {
   setAdmin(isAdmin: boolean) {
     this.isAdmin = isAdmin;
   }
+
+  beMasterSession() {
+    runInAction(async () => {
+      console.log("Becoming master session with ID:", this.sessionId);
+      await this.leaderSessionIdService.set(this.sessionId);
+    });
+  }
+
+  // get getMasterSession(): boolean {
+  //   console.log("Checking master session status for ID:", this.sessionId);
+  //   runInAction(async () => {
+  //     this.masterSession =
+  //       (await this.leaderSessionIdService.read())?.data === this.sessionId;
+  //   });
+  //   return this.masterSession;
+  // }
 
   get getAdmin() {
     return this.isAdmin;
@@ -109,9 +129,9 @@ class AdminStore {
   }
 
   get nextTeams(): Civilisation[] {
-    return CONFIG.teams.slice(this.activeTeamIndex + 1).concat(
-      CONFIG.teams.slice(0, this.activeTeamIndex)
-    );
+    return CONFIG.teams
+      .slice(this.activeTeamIndex + 1)
+      .concat(CONFIG.teams.slice(0, this.activeTeamIndex));
   }
 
   // Sync state with backend
@@ -127,6 +147,7 @@ class AdminStore {
 
   // Load state from backend
   async loadState() {
+    // Real-time service
     const stateData = await this.realtimeService.read();
     if (stateData && stateData.data) {
       const state = JSON.parse(stateData.data);
@@ -135,6 +156,14 @@ class AdminStore {
         this.activeTeamIndex = state.activeTeamIndex;
         this.roundStartTime = state.roundStartTime;
         this.remainingTime = state.remainingTime;
+      });
+    }
+
+    // Leader session ID service
+    const leaderSessionIdData = await this.leaderSessionIdService.read();
+    if (leaderSessionIdData && leaderSessionIdData.data) {
+      runInAction(() => {
+        this.leaderSessionId = leaderSessionIdData.data;
       });
     }
   }
