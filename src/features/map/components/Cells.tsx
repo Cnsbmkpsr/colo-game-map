@@ -125,6 +125,123 @@ function Cells() {
             <meshPhongMaterial color="rgba(0, 0, 255, 0.5)" transparent opacity={0.5} />
           </mesh>
         ))}
+
+      {mapStore.selectedCell && (
+        <group
+          key="selected-cell-highlight"
+          position={[
+            mapStore.selectedCell.position.x === 0 ? mapStore.selectedCell.position.x : mapStore.selectedCell.position.x + 0.025 * mapStore.selectedCell.position.x, 
+            0.1, 
+            mapStore.selectedCell.position.y === 0 ? mapStore.selectedCell.position.y : mapStore.selectedCell.position.y + 0.025 * mapStore.selectedCell.position.y
+          ]}
+        >
+          {/* Corner frames - 4 L-shaped corners */}
+          
+          {/* Top-left corner */}
+          <group>
+            {/* Horizontal line (left side) */}
+            <mesh position={[-0.35, 0, -0.5]}>
+              <boxGeometry args={[0.2, 0.05, 0.05]} />
+              <meshPhongMaterial 
+                color="#ffff00" 
+                emissive="#ffff00"
+                emissiveIntensity={0.4}
+                transparent 
+                opacity={0.9}
+              />
+            </mesh>
+            {/* Vertical line (top side) */}
+            <mesh position={[-0.5, 0, -0.35]}>
+              <boxGeometry args={[0.05, 0.05, 0.2]} />
+              <meshPhongMaterial 
+                color="#ffff00" 
+                emissive="#ffff00"
+                emissiveIntensity={0.4}
+                transparent 
+                opacity={0.9}
+              />
+            </mesh>
+          </group>
+
+          {/* Top-right corner */}
+          <group>
+            {/* Horizontal line (right side) */}
+            <mesh position={[0.35, 0, -0.5]}>
+              <boxGeometry args={[0.2, 0.05, 0.05]} />
+              <meshPhongMaterial 
+                color="#ffff00" 
+                emissive="#ffff00"
+                emissiveIntensity={0.4}
+                transparent 
+                opacity={0.9}
+              />
+            </mesh>
+            {/* Vertical line (top side) */}
+            <mesh position={[0.5, 0, -0.35]}>
+              <boxGeometry args={[0.05, 0.05, 0.2]} />
+              <meshPhongMaterial 
+                color="#ffff00" 
+                emissive="#ffff00"
+                emissiveIntensity={0.4}
+                transparent 
+                opacity={0.9}
+              />
+            </mesh>
+          </group>
+
+          {/* Bottom-right corner */}
+          <group>
+            {/* Horizontal line (right side) */}
+            <mesh position={[0.35, 0, 0.5]}>
+              <boxGeometry args={[0.2, 0.05, 0.05]} />
+              <meshPhongMaterial 
+                color="#ffff00" 
+                emissive="#ffff00"
+                emissiveIntensity={0.4}
+                transparent 
+                opacity={0.9}
+              />
+            </mesh>
+            {/* Vertical line (bottom side) */}
+            <mesh position={[0.5, 0, 0.35]}>
+              <boxGeometry args={[0.05, 0.05, 0.2]} />
+              <meshPhongMaterial 
+                color="#ffff00" 
+                emissive="#ffff00"
+                emissiveIntensity={0.4}
+                transparent 
+                opacity={0.9}
+              />
+            </mesh>
+          </group>
+
+          {/* Bottom-left corner */}
+          <group>
+            {/* Horizontal line (left side) */}
+            <mesh position={[-0.35, 0, 0.5]}>
+              <boxGeometry args={[0.2, 0.05, 0.05]} />
+              <meshPhongMaterial 
+                color="#ffff00" 
+                emissive="#ffff00"
+                emissiveIntensity={0.4}
+                transparent 
+                opacity={0.9}
+              />
+            </mesh>
+            {/* Vertical line (bottom side) */}
+            <mesh position={[-0.5, 0, 0.35]}>
+              <boxGeometry args={[0.05, 0.05, 0.2]} />
+              <meshPhongMaterial 
+                color="#ffff00" 
+                emissive="#ffff00"
+                emissiveIntensity={0.4}
+                transparent 
+                opacity={0.9}
+              />
+            </mesh>
+          </group>
+        </group>
+      )}
     </Instances>
   );
 }
