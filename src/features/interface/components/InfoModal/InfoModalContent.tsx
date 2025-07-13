@@ -7,12 +7,12 @@ import InfoModalOwnedLandActions from "./InfoModalLandActions";
 import InfoModalTroopActions from "./InfoModalTroopActions";
 import InfoModalBuyLandAction from "./InfoModalBuyLandAction";
 import { mapStore } from "../../../map/mapStore";
-// import InfoModalTroopTimer from "./InfoModalTroopTimer";
 import { troopStore } from "../../../game/troopStore";
 import { landStore } from "../../../game/landStore";
 import { adminStore } from "../../adminStore";
 import { useEffect, useState } from "react";
 import { autorun } from "mobx";
+import InfoModalAdminActions from "./InfoModalAdminActions";
 
 const InfoModalContent = observer(() => {
   const [selectedCell, setSelectedCell] = useState(mapStore.getSelectedCell);
@@ -31,8 +31,6 @@ const InfoModalContent = observer(() => {
     return () => disposer();
   }, []);
 
-  // Identify the selected faction based on the troop's civilization
-  // const selectedFaction = selectedTroop ? factionStore.factions.find(faction => faction.name === selectedTroop.civ) : null;
   const isTeamTurn = adminStore.loggedInTeam === adminStore.activeTeam;
 
   useEffect(() => {
@@ -55,13 +53,6 @@ const InfoModalContent = observer(() => {
                 Déplacer l&apos;unitée
               </Button>
             )}
-
-          {/* {selectedTroop && selectedTroop.type !== "structure" && (
-            <>
-              <InfoModalTroopTimer timeToAdd={1000 * 60 * 5} />
-              <InfoModalTroopTimer timeToAdd={1000 * 30} />
-            </>
-          )} */}
         </>
       )}
 
@@ -76,6 +67,10 @@ const InfoModalContent = observer(() => {
         <InfoModalBuyLandAction
           factionColor={factionStore.getSelectedFaction.color}
         />
+      )}
+
+      {adminStore.getAdmin && troopStore.hasTroopOnSelectedCell && (
+        <InfoModalAdminActions />
       )}
     </VStack>
   );

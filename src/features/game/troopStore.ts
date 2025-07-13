@@ -1,4 +1,4 @@
-import { makeAutoObservable, toJS } from "mobx";
+import { makeAutoObservable, runInAction, toJS } from "mobx";
 import { troopActions } from "./troopActions";
 import { troopCreation } from "./troopCreation";
 import { troopMovement } from "./troopMovement";
@@ -50,6 +50,25 @@ class TroopStore {
 
   removeTroop(id: Troop["id"]) {
     troopActions.removeTroop(id);
+  }
+
+  adminRemoveTroopOnSelectedCell() {
+    const position = mapStore.selectedCell?.position;
+    if (!position || !adminStore.getAdmin) return;
+
+    const troopToRemove = this.troops.find(
+      (troop) =>
+        troop.position.x === position.x && troop.position.y === position.y
+    );
+
+    if (troopToRemove) {
+      runInAction(() => {
+        this.removeTroop(troopToRemove.id);
+        mapStore.updateMap();
+        mapStore.refreshSelectedCell();
+        mapStore.save();
+      });
+    }
   }
 
   getTroop(id: Troop["id"]) {
