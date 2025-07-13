@@ -3,15 +3,17 @@ import { factionStore } from "../../game/factionStore";
 import { landStore } from "../../game/landStore";
 import { mapStore } from "../../map/mapStore";
 import { troopStore } from "../../game/troopStore";
-import {  buildTroop } from "../../game/utils/troopBuilder";
+import { buildTroop } from "../../game/utils/troopBuilder";
 import { selectRandomVille } from "../utils/villeNames";
 import { TROOP_TYPES } from "../../../shared/constants";
+import { infoModalStore } from "../infoModalStore";
 
 const useInfoModalActions = () => {
-
   const handleBuyLand = async () => {
     if (factionStore.getSelectedFaction === null) return;
     if (!mapStore.selectedCell?.position) return;
+
+    infoModalStore.setCurrentCivilisation(factionStore.getSelectedFaction.name);
 
     landStore.addLand({
       owner: factionStore.getSelectedFaction.name,
@@ -21,30 +23,27 @@ const useInfoModalActions = () => {
     mapStore.updateMap();
     mapStore.refreshSelectedCell();
 
-    // Add a 1-second delay before saving the map
     setTimeout(async () => {
       await mapStore.save();
     }, 1000);
-
   };
 
   const handleBuyInfantry = async () => {
     if (factionStore.getSelectedFaction === null) return;
     if (!mapStore.selectedCell?.position) return;
     if (!landStore.isOwnedByCurrentFaction) return;
-  
+
     troopStore.addTroop(
       buildTroop({
-        civ: factionStore.getSelectedFaction.name as any,
+        civ: factionStore.getSelectedFaction.name,
         type: "infanterie",
         position: mapStore.selectedCell.position,
       })
     );
-  
+
     mapStore.updateMap();
     mapStore.refreshSelectedCell();
-  
-    // Add a 1-second delay before saving the map
+
     setTimeout(async () => {
       await mapStore.save();
     }, 1000);
@@ -57,7 +56,7 @@ const useInfoModalActions = () => {
 
     troopStore.addTroop(
       buildTroop({
-        civ: factionStore.getSelectedFaction.name as any,
+        civ: factionStore.getSelectedFaction.name,
         type: TROOP_TYPES.ARMORED_UNIT,
         position: mapStore.selectedCell.position,
       })
@@ -74,7 +73,7 @@ const useInfoModalActions = () => {
 
     troopStore.addTroop(
       buildTroop({
-        civ: factionStore.getSelectedFaction.name as any,
+        civ: factionStore.getSelectedFaction.name,
         type: TROOP_TYPES.AIR_UNIT,
         position: mapStore.selectedCell.position,
       })
@@ -91,10 +90,9 @@ const useInfoModalActions = () => {
 
     troopStore.addTroop(
       buildTroop({
-        civ: factionStore.getSelectedFaction.name as any,
+        civ: factionStore.getSelectedFaction.name,
         type: TROOP_TYPES.AIR_UNIT,
         position: mapStore.selectedCell.position,
-
       })
     );
 
@@ -149,7 +147,7 @@ const useInfoModalActions = () => {
     if (!position) return;
 
     const ville = buildTroop({
-      civ: factionStore.getSelectedFaction.name as any,
+      civ: factionStore.getSelectedFaction.name,
       type: "structure",
       position,
       pv,

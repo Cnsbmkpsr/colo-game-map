@@ -21,18 +21,25 @@ function Cell({ x, y, data, ...rest }: CellArgs) {
       const selectedTroop = mapStore.selectedCell?.cell.troop as Troop;
       if (selectedTroop) {
         const newPosition = { x, y };
-        const validationMessage = troopStore.validateMoveTroop(selectedTroop.id, newPosition);
-  
+        const validationMessage = troopStore.validateMoveTroop(
+          selectedTroop.id,
+          newPosition
+        );
+
         if (!validationMessage) {
           troopStore.setGhostTroop(selectedTroop.id, { x, y });
-  
+
           // Save the ghost position in the database
-          await realtimeService.saveGhostPosition(selectedTroop.id.toString(), { x, y }, adminStore.activeTeam);
-  
+          await realtimeService.saveGhostPosition(
+            selectedTroop.id.toString(),
+            { x, y },
+            adminStore.activeTeam
+          );
+
           // Optionally update mapStore or other state here
           mapStore.updateMap();
           mapStore.refreshSelectedCell();
-  
+
           // Exit move mode
           troopStore.setIsTroopMoving(false);
         } else {
@@ -41,38 +48,34 @@ function Cell({ x, y, data, ...rest }: CellArgs) {
       }
       return;
     }
-  
+
     if (troopStore.getFightingTroop) {
       const targetTroop = mapStore.getCell(x, y).troop;
-  
+
       if (!targetTroop) return;
       if (targetTroop.civ === troopStore.getFightingTroop.civ) return;
-  
+
       troopStore.fight(troopStore.getFightingTroop, targetTroop);
       document.body.style.cursor = "default";
       troopStore.setTroopFight(undefined);
-  
+
       mapStore.updateMap();
       mapStore.refreshSelectedCell();
       return;
     }
-  
+
     // Set the current civilization in the infoModalStore
-    const cellCiv = data.owner?.faction ? data.owner.faction.name : null;
-    infoModalStore.setCurrentCivilisation(cellCiv);
-  
+
     infoModalStore.onRefresh();
-  
+
     // * Set SELECTED_CELL
     mapStore.setSelectedCell({
       cell: data,
       position: { x, y },
     });
-  
+
     if (!infoModalStore.isOpen) infoModalStore.onOpen(); // Open the modal if not already open
   };
-  
-
 
   const handleMouseOver = () => {
     if (troopStore.isTroopMoving) {
@@ -102,8 +105,6 @@ function Cell({ x, y, data, ...rest }: CellArgs) {
   );
 }
 
-
-
 function Cells() {
   const size = mapStore.mapData.length;
 
@@ -119,10 +120,16 @@ function Cells() {
 
       {/* Render ghost positions */}
       {adminStore.loggedInTeam === adminStore.activeTeam &&
-        Object.entries(mapStore.ghostPositions[adminStore.activeTeam] || {}).map(([unitId, pos]) => (
+        Object.entries(
+          mapStore.ghostPositions[adminStore.activeTeam] || {}
+        ).map(([unitId, pos]) => (
           <mesh key={unitId} position={[pos.x * 1.025, 0.1, pos.y * 1.025]}>
             <boxGeometry args={[1, 0.2, 1]} />
-            <meshPhongMaterial color="rgba(0, 0, 255, 0.5)" transparent opacity={0.5} />
+            <meshPhongMaterial
+              color="rgba(0, 0, 255, 0.5)"
+              transparent
+              opacity={0.5}
+            />
           </mesh>
         ))}
 
@@ -130,34 +137,40 @@ function Cells() {
         <group
           key="selected-cell-highlight"
           position={[
-            mapStore.selectedCell.position.x === 0 ? mapStore.selectedCell.position.x : mapStore.selectedCell.position.x + 0.025 * mapStore.selectedCell.position.x, 
-            0.1, 
-            mapStore.selectedCell.position.y === 0 ? mapStore.selectedCell.position.y : mapStore.selectedCell.position.y + 0.025 * mapStore.selectedCell.position.y
+            mapStore.selectedCell.position.x === 0
+              ? mapStore.selectedCell.position.x
+              : mapStore.selectedCell.position.x +
+                0.025 * mapStore.selectedCell.position.x,
+            0.1,
+            mapStore.selectedCell.position.y === 0
+              ? mapStore.selectedCell.position.y
+              : mapStore.selectedCell.position.y +
+                0.025 * mapStore.selectedCell.position.y,
           ]}
         >
           {/* Corner frames - 4 L-shaped corners */}
-          
+
           {/* Top-left corner */}
           <group>
             {/* Horizontal line (left side) */}
             <mesh position={[-0.35, 0, -0.5]}>
               <boxGeometry args={[0.2, 0.05, 0.05]} />
-              <meshPhongMaterial 
-                color="#ffff00" 
+              <meshPhongMaterial
+                color="#ffff00"
                 emissive="#ffff00"
                 emissiveIntensity={0.4}
-                transparent 
+                transparent
                 opacity={0.9}
               />
             </mesh>
             {/* Vertical line (top side) */}
             <mesh position={[-0.5, 0, -0.35]}>
               <boxGeometry args={[0.05, 0.05, 0.2]} />
-              <meshPhongMaterial 
-                color="#ffff00" 
+              <meshPhongMaterial
+                color="#ffff00"
                 emissive="#ffff00"
                 emissiveIntensity={0.4}
-                transparent 
+                transparent
                 opacity={0.9}
               />
             </mesh>
@@ -168,22 +181,22 @@ function Cells() {
             {/* Horizontal line (right side) */}
             <mesh position={[0.35, 0, -0.5]}>
               <boxGeometry args={[0.2, 0.05, 0.05]} />
-              <meshPhongMaterial 
-                color="#ffff00" 
+              <meshPhongMaterial
+                color="#ffff00"
                 emissive="#ffff00"
                 emissiveIntensity={0.4}
-                transparent 
+                transparent
                 opacity={0.9}
               />
             </mesh>
             {/* Vertical line (top side) */}
             <mesh position={[0.5, 0, -0.35]}>
               <boxGeometry args={[0.05, 0.05, 0.2]} />
-              <meshPhongMaterial 
-                color="#ffff00" 
+              <meshPhongMaterial
+                color="#ffff00"
                 emissive="#ffff00"
                 emissiveIntensity={0.4}
-                transparent 
+                transparent
                 opacity={0.9}
               />
             </mesh>
@@ -194,22 +207,22 @@ function Cells() {
             {/* Horizontal line (right side) */}
             <mesh position={[0.35, 0, 0.5]}>
               <boxGeometry args={[0.2, 0.05, 0.05]} />
-              <meshPhongMaterial 
-                color="#ffff00" 
+              <meshPhongMaterial
+                color="#ffff00"
                 emissive="#ffff00"
                 emissiveIntensity={0.4}
-                transparent 
+                transparent
                 opacity={0.9}
               />
             </mesh>
             {/* Vertical line (bottom side) */}
             <mesh position={[0.5, 0, 0.35]}>
               <boxGeometry args={[0.05, 0.05, 0.2]} />
-              <meshPhongMaterial 
-                color="#ffff00" 
+              <meshPhongMaterial
+                color="#ffff00"
                 emissive="#ffff00"
                 emissiveIntensity={0.4}
-                transparent 
+                transparent
                 opacity={0.9}
               />
             </mesh>
@@ -220,22 +233,22 @@ function Cells() {
             {/* Horizontal line (left side) */}
             <mesh position={[-0.35, 0, 0.5]}>
               <boxGeometry args={[0.2, 0.05, 0.05]} />
-              <meshPhongMaterial 
-                color="#ffff00" 
+              <meshPhongMaterial
+                color="#ffff00"
                 emissive="#ffff00"
                 emissiveIntensity={0.4}
-                transparent 
+                transparent
                 opacity={0.9}
               />
             </mesh>
             {/* Vertical line (bottom side) */}
             <mesh position={[-0.5, 0, 0.35]}>
               <boxGeometry args={[0.05, 0.05, 0.2]} />
-              <meshPhongMaterial 
-                color="#ffff00" 
+              <meshPhongMaterial
+                color="#ffff00"
                 emissive="#ffff00"
                 emissiveIntensity={0.4}
-                transparent 
+                transparent
                 opacity={0.9}
               />
             </mesh>
