@@ -36,7 +36,7 @@ class FactionStore {
       color: FACTION_COLORS["T'au Empire"],
     });
     this.addFaction({
-      name: CIVILISATIONS.TYRANIDS,
+      name: CIVILISATIONS.TYRANNIDES,
       color: FACTION_COLORS.Tyranids,
     });
     this.addFaction({

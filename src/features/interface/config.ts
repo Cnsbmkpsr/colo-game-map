@@ -10,7 +10,7 @@ export const CONFIG = {
     CIVILISATIONS.CHAOS,
     CIVILISATIONS.NECRONS,
     CIVILISATIONS.TAU_EMPIRE,
-    CIVILISATIONS.TYRANIDS,
+    CIVILISATIONS.TYRANNIDES,
     CIVILISATIONS.LEAGUES_OF_VOTANN,
     CIVILISATIONS.DRUKHARI,
   ] as Civilisation[],
@@ -21,7 +21,7 @@ export const CONFIG = {
     [CIVILISATIONS.CHAOS]: { id: "team4", password: "team" },
     [CIVILISATIONS.NECRONS]: { id: "team5", password: "team" },
     [CIVILISATIONS.TAU_EMPIRE]: { id: "team6", password: "team" },
-    [CIVILISATIONS.TYRANIDS]: { id: "team7", password: "team" },
+    [CIVILISATIONS.TYRANNIDES]: { id: "team7", password: "team" },
     [CIVILISATIONS.LEAGUES_OF_VOTANN]: {
       id: "team8",
       password: "team",
