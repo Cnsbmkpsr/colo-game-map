@@ -8,7 +8,8 @@ import { useEffect } from "react";
 import PasswordModal from "./PasswordModal";
 import TimeControl from "./admin/TimeControl";
 import RoundIndicator from "./RoundIndicator";
-import TeamLogin from "../team/TeamLogin";
+import TeamLoginModal from "./TeamLoginModal";
+import CurrentFactionCard from "./CurrentFactionCard";
 import { observer } from "mobx-react";
 import { Separator } from "../../../shared/components/separator";
 
@@ -26,16 +27,14 @@ const Interface = () => {
     <>
       <InfoModal />
       <RoundIndicator />
-      {!adminStore.getAdmin && !adminStore.isLoggedInTeam && (
-        <Box
-          position="absolute"
-          top="50%"
-          left="50%"
-          transform="translate(-50%, -50%)"
-        >
-          <TeamLogin />
-        </Box>
-      )}
+      <CurrentFactionCard />
+      
+      {/* Modal de connexion équipe - bloque l'accès tant qu'on n'est pas connecté */}
+      <TeamLoginModal 
+        isOpen={!adminStore.getAdmin && !adminStore.isLoggedInTeam}
+        onClose={() => {}} // Ne peut pas être fermé
+      />
+      
       {adminStore.getAdmin && (
         <>
           <Box
