@@ -10,15 +10,11 @@ export const CIVILISATIONS = {
   ORKS: "Orks",
   ELDARS: "Eldars",
   CHAOS: "Chaos",
-<<<<<<< Updated upstream
   NECRONS: "Necrons",
   TAU_EMPIRE: "T'au Empire",
-  TYRANIDS: "Tyranids",
   LEAGUES_OF_VOTANN: "Leagues of Votann",
   DRUKHARI: "Drukhari",
-=======
   TYRANIDS: "Tyrannides",
->>>>>>> Stashed changes
 } as const;
 
 export const FACTION_COLORS = {
