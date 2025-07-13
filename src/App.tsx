@@ -11,8 +11,6 @@ import { factionStore } from "./features/game/factionStore";
 import { troopStore } from "./features/game/troopStore";
 import { adminStore } from "./features/interface/adminStore";
 
-
-
 function App() {
   useEffect(() => {
     (async function () {
@@ -91,7 +89,7 @@ function App() {
         <directionalLight position={[0, 10, 0]} intensity={1.2} />
         {/* eslint-disable-next-line react/no-unknown-property */}
         <ambientLight intensity={0.5} />
-        <OrbitControls target={new Vector3(5, 0, 5)} />
+        <OrbitControls target={new Vector3(15, 0, 15)} />
       </Canvas>
       <Interface />
     </>
