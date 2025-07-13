@@ -11,7 +11,7 @@ type InfoModalBuyTroopsActionsProps = {
 const InfoModalOwnedTroopAction = ({
   factionColor,
 }: InfoModalBuyTroopsActionsProps) => {
-  const { handleMoveTroop, handleFightTroop, handleRemoveTroop, handleSetPvs } =
+  const { handleMoveTroop, handleFightTroop, handleSetPvs } =
     useInfoModalActions();
 
   const [pv, setPv] = useState(mapStore.getSelectedCell?.cell.troop?.pv ?? 0);
