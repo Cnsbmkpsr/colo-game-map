@@ -3,8 +3,8 @@ import { observer } from "mobx-react";
 import { useState } from "react";
 import { troopStore } from "../../../game/troopStore";
 import { Position } from "../../../game/types";
-import { infoModalStore } from "../../infoModalStore";
 import { mapStore } from "../../../map/mapStore";
+import { factionStore } from "../../../game/factionStore";
 
 type InfoModalBuyTroopsActionsProps = {
   factionColor: string;
@@ -35,7 +35,7 @@ const InfoModalBuyTroopsActions = ({
       x: 0,
       y: 0,
     }; // Use selected cell position or default
-    const selectedCiv = infoModalStore.currentCivilisation || "Orks"; // Use current civilization or default
+    const selectedCiv = factionStore.getSelectedFaction?.name || "Orks";
 
     if (selectedUnitType === "ground") {
       troopStore.addTroop(

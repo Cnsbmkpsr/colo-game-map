@@ -11,42 +11,12 @@ class FactionStore {
   }
 
   fetchFactions() {
-    this.addFaction({
-      name: CIVILISATIONS.IMPERIUM,
-      color: FACTION_COLORS.Imperium,
-    });
-    this.addFaction({
-      name: CIVILISATIONS.ORKS,
-      color: FACTION_COLORS.Orks,
-    });
-    this.addFaction({
-      name: CIVILISATIONS.ELDARS,
-      color: FACTION_COLORS.Eldars,
-    });
-    this.addFaction({
-      name: CIVILISATIONS.CHAOS,
-      color: FACTION_COLORS.Chaos,
-    });
-    this.addFaction({
-      name: CIVILISATIONS.NECRONS,
-      color: FACTION_COLORS.Necrons,
-    });
-    this.addFaction({
-      name: CIVILISATIONS.TAU_EMPIRE,
-      color: FACTION_COLORS["T'au Empire"],
-    });
-    this.addFaction({
-      name: CIVILISATIONS.TYRANNIDES,
-      color: FACTION_COLORS.Tyranids,
-    });
-    this.addFaction({
-      name: CIVILISATIONS.LEAGUES_OF_VOTANN,
-      color: FACTION_COLORS["Leagues of Votann"],
-    });
-    this.addFaction({
-      name: CIVILISATIONS.DRUKHARI,
-      color: FACTION_COLORS.Drukhari,
-    });
+    for (const faction of Object.values(CIVILISATIONS)) {
+      this.addFaction({
+        name: faction,
+        color: FACTION_COLORS[faction],
+      });
+    }
   }
 
   selectFaction(name: Civilisation) {
