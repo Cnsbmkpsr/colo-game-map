@@ -53,9 +53,6 @@ function App() {
         case "l":
           factionStore.selectFaction(CIVILISATIONS.LEAGUES_OF_VOTANN);
           break;
-        case "d":
-          factionStore.selectFaction(CIVILISATIONS.DRUKHARI);
-          break;
         case "s":
           await mapStore.save();
           break;
