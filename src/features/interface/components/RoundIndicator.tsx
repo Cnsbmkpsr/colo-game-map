@@ -3,6 +3,7 @@ import { observer } from "mobx-react";
 import { Progress, Text, Box, VStack } from "@chakra-ui/react";
 import { adminStore } from "../adminStore";
 import { CONFIG } from "../config";
+import {FACTION_COLORS, FACTION_DESATURATED_COLORS} from "../../../shared/constants.ts";
 
 const RoundIndicator = () => {
   const [timeRemaining, setTimeRemaining] = useState(adminStore.remainingTime);
@@ -47,10 +48,13 @@ const RoundIndicator = () => {
       transform="translateX(0)" // Ensure it's centered on mobile
     >
       <VStack spacing={2} alignItems="stretch">
-        <Text fontSize="xl" fontWeight="bold">
-          {`L'équipe qui joue est: ${adminStore.activeTeam}`}
+        <Text fontSize="xl">
+          {`L'équipe qui joue est: `}
+          <span style={{ fontWeight: "bold", color: FACTION_COLORS[adminStore.activeTeam] }}>
+          {adminStore.activeTeam}
+          </span>
           {nextTeams.map((team, index) => (
-            <span key={index} style={{ color: "gray" }}>{` → ${team}`}</span>
+            <span key={index} style={{ color: FACTION_DESATURATED_COLORS[team] }}>{` → ${team}`}</span>
           ))}
         </Text>
         {isTeamTurn && (
