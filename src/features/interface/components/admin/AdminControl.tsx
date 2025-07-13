@@ -1,5 +1,5 @@
 import { observer } from "mobx-react";
-import { Button } from "@chakra-ui/react";
+import { Button, GridItem } from "@chakra-ui/react";
 import { adminStore } from "../../adminStore";
 
 const AdminControl = () => {
@@ -12,14 +12,18 @@ const AdminControl = () => {
   };
 
   return (
-    <div>
-      <Button onClick={handleStart} colorScheme="green">
-        Start Rounds
-      </Button>
-      <Button onClick={handlePause} colorScheme="red">
-        Pause Rounds
-      </Button>
-    </div>
+    <>
+      <GridItem>
+        <Button onClick={handleStart} colorScheme="green">
+          Start Rounds
+        </Button>
+      </GridItem>
+      <GridItem>
+        <Button onClick={handlePause} colorScheme="red">
+          Pause Rounds
+        </Button>
+      </GridItem>
+    </>
   );
 };
 

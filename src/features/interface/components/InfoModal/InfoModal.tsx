@@ -48,16 +48,16 @@ const InfoModal = () => {
   return (
     <Box
       ref={ref}
-      position="absolute"
-      top="4"
+      position="fixed"
+      top="2"
+      left="2"
       display={infoModalStore.isOpen ? "block" : "none"}
       bg="white"
       border="1px"
       borderColor="gray.300"
-      borderRadius={{ base: "none", lg: "lg" }}
+      borderRadius="md"
       shadow="md"
       overflow="auto"
-      resize="both"
     >
       <Flex h="3" w="full">
         <Flex

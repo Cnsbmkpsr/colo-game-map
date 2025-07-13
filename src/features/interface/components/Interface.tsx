@@ -1,4 +1,4 @@
-import { HStack, useDisclosure, Box } from "@chakra-ui/react";
+import { GridItem, useDisclosure, Box, Grid } from "@chakra-ui/react";
 import InfoModal from "./InfoModal/InfoModal";
 import FactionMenu from "./FactionMenu";
 import CancelActions from "./CancelActions";
@@ -37,25 +37,40 @@ const Interface = () => {
       )}
       {adminStore.getAdmin && (
         <>
-          <HStack
-            spacing={2}
-            position="absolute"
-            left="50%"
-            top="2"
-            transform="translateX(-50%)"
-          >
-            <FactionMenu />
-            <CancelActions />
-          </HStack>
-          <SaveButton />
           <Box
+            position="absolute"
+            right="2"
+            top="2"
+            p="2"
+            bg="white"
+            border="1px"
+            borderColor="gray.300"
+            borderRadius="md"
+            shadow="md"
+          >
+            <Grid
+              gap={2}
+              templateColumns="1fr 1fr"
+            >
+              <GridItem colSpan={2}>
+                <FactionMenu />
+              </GridItem>
+              <AdminControl />
+              <GridItem colSpan={2}>
+                <SaveButton />
+              </GridItem>
+              <GridItem colSpan={2}>
+                <CancelActions />
+              </GridItem>
+            </Grid>
+          </Box>
+          {/* <Box
             position="absolute"
             bottom="2"
             left="50%"
-            transform="translateX(-50%)"
+            // transform="translateX(-50%)"
           >
-            <AdminControl />
-          </Box>
+          </Box> */}
         </>
       )}
       <PasswordModal

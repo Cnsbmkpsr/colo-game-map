@@ -35,11 +35,13 @@ const RoundIndicator = () => {
   return (
     <Box
       position="fixed"
-      top="0"
+      top="2"
       width={{ base: "100%", md: "50%" }} // Full width on mobile, 50% width on non-mobile
       left={{ base: "0", md: "25%" }} // Centered on non-mobile
-      bg="white"
       p={4}
+      bg="white"
+      border="1px"
+      borderColor="gray.300"
       borderRadius="md"
       boxShadow="md"
       transform="translateX(0)" // Ensure it's centered on mobile

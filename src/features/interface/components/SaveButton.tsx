@@ -9,14 +9,11 @@ const SaveButton = () => {
 
   return (
     <Button
-      position="absolute"
-      right="0"
-      transform="translate(-5%, -110%)"
       onClick={handleSaveAll}
-      bg={"green.400"}
-      color={"white"}
+      colorScheme="green"
+      width="100%"
     >
-      Save all
+      Save map
     </Button>
   );
 };

@@ -32,7 +32,7 @@ const FactionMenu = () => {
 
   return (
     <Menu>
-      <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
+      <MenuButton as={Button} rightIcon={<ChevronDownIcon />} width="100%">
         {selectedFaction ? (
           <Flex alignItems="center">
             <Box
