@@ -14,6 +14,7 @@ const SaveButton = () => {
       transform="translate(-5%, -110%)"
       onClick={handleSaveAll}
       bg={"green.400"}
+      color={"white"}
     >
       Save all
     </Button>

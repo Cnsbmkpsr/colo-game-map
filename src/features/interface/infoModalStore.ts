@@ -34,9 +34,22 @@ class InfoModalStore {
     if (!selectedCell) return {};
 
     const { cell } = selectedCell;
+
+    // Construct the description based on the cell data
+    let troupeDescription = null;
+    if (cell.troop) {
+      const { vitDep, pv, attack, type } = cell.troop;
+      troupeDescription = {
+        Type: type,
+        Vitesse: vitDep,
+        PV: pv,
+        Attaque: attack,
+      };
+    }
+
     return {
-      ...(cell.owner && { Owner: cell.owner.faction.name }),
-      ...(cell.troop && { Troop: cell.troop }),
+      ...(cell.owner && { Propriétaire: cell.owner.faction.name }),
+      ...(troupeDescription && { Troupe: troupeDescription }),
     };
   }
 
@@ -45,7 +58,7 @@ class InfoModalStore {
     if (!selectedCell) return "";
 
     const { position } = selectedCell;
-    return `Cell: ${position.x}, ${position.y}`;
+    return `Tuile: ${position.x}, ${position.y}`;
   }
 
   onOpen() {
@@ -58,7 +71,6 @@ class InfoModalStore {
 
   onRefresh() {
     runInAction(() => {
-
       this.setTitle(this.getTitle);
       this.setDescription(this.getDescription);
     });

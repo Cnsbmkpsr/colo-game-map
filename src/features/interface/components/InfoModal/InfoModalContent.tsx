@@ -56,12 +56,12 @@ const InfoModalContent = observer(() => {
               </Button>
             )}
 
-          {selectedTroop && selectedTroop.type !== "structure" && (
+          {/* {selectedTroop && selectedTroop.type !== "structure" && (
             <>
               <InfoModalTroopTimer timeToAdd={1000 * 60 * 5} />
               <InfoModalTroopTimer timeToAdd={1000 * 30} />
             </>
-          )}
+          )} */}
         </>
       )}
 
