@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { observer } from "mobx-react";
-import { Box, VStack, HStack, Text, Collapse, Button, useDisclosure, Progress } from "@chakra-ui/react";
+import { Box, VStack, HStack, Text, Collapse, Button, useDisclosure, Progress, Badge } from "@chakra-ui/react";
 import { adminStore } from "../adminStore";
 import { CONFIG } from "../config";
 import { FACTION_COLORS } from "../../../shared/constants.ts";
@@ -62,9 +62,22 @@ const RoundIndicator = () => {
       p={6}
       bg="white"
       border="1px"
-      borderColor="gray.100"
+      borderColor={isTeamTurn ? "green.400" : "gray.100"}
       borderRadius="2xl"
-      boxShadow="lg"
+      boxShadow={isTeamTurn ? "0 0 20px rgba(34, 197, 94, 0.3), 0 4px 12px rgba(0, 0, 0, 0.1)" : "lg"}
+      transition="all 0.3s ease"
+      _before={isTeamTurn ? {
+        content: '""',
+        position: "absolute",
+        top: "-2px",
+        left: "-2px",
+        right: "-2px", 
+        bottom: "-2px",
+        borderRadius: "2xl",
+        background: "linear-gradient(45deg, rgba(34, 197, 94, 0.5), rgba(34, 197, 94, 0.2), rgba(34, 197, 94, 0.5))",
+        zIndex: -1,
+        animation: "pulse 2s ease-in-out infinite"
+      } : {}}
     >
       <VStack spacing={6} alignItems="stretch">
         {/* Ligne principale: Équipe active à gauche, Top 3 à droite */}
@@ -78,7 +91,7 @@ const RoundIndicator = () => {
               color="gray.500"
               fontWeight="medium"
             >
-              Équipe en jeu
+              Faction en jeu
             </Text>
             <HStack spacing={3} align="center">
               <Box 
@@ -107,7 +120,7 @@ const RoundIndicator = () => {
                 color="green.500"
                 fontWeight="medium"
               >
-                C'est à ton équipe de jouer !
+                C'est à ta faction de jouer !
               </Text>
             )}
             
@@ -172,6 +185,18 @@ const RoundIndicator = () => {
                   >
                     {team}
                   </Text>
+                  {/* Badge pour l'équipe connectée */}
+                  {adminStore.loggedInTeam === team && (
+                    <Badge 
+                      colorScheme="green" 
+                      size="sm"
+                      variant="subtle"
+                      fontSize="xs"
+                      px={2}
+                    >
+                      Vous
+                    </Badge>
+                  )}
                   {index === 0 && (
                     <Box 
                       w={2} 
@@ -202,7 +227,7 @@ const RoundIndicator = () => {
               p={2}
               h="auto"
             >
-              {isOpen ? "Masquer" : `Voir les ${remainingTeams.length} autres équipes`}
+              {isOpen ? "Masquer" : `Voir les ${remainingTeams.length} autres factions`}
             </Button>
             
             <Collapse in={isOpen} animateOpacity>
@@ -239,6 +264,18 @@ const RoundIndicator = () => {
                     >
                       {team}
                     </Text>
+                    {/* Badge pour l'équipe connectée dans la liste étendue */}
+                    {adminStore.loggedInTeam === team && (
+                      <Badge 
+                        colorScheme="green" 
+                        size="sm"
+                        variant="subtle"
+                        fontSize="xs"
+                        px={2}
+                      >
+                        Vous
+                      </Badge>
+                    )}
                   </HStack>
                 ))}
               </VStack>
