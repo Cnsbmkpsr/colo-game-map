@@ -8,7 +8,7 @@ import { mapStore } from "../map/mapStore";
 const passwordCollection = new RealtimeService("password");
 
 class AdminStore {
-  isAdmin = true;
+  isAdmin = false;
   isPaused = true;
   currentTeamIndex = 0;
   activeTeamIndex = 0;
