@@ -49,25 +49,27 @@ const Interface = () => {
             borderRadius="md"
             shadow="md"
           >
-            <Grid gap={2} templateColumns="1fr 1fr">
-              <GridItem colSpan={2}>
+            <Grid gap={2} templateColumns="1fr">
+              <GridItem>
                 <FactionMenu />
               </GridItem>
 
-              <GridItem colSpan={2}>
+              <GridItem>
                 <Separator />
               </GridItem>
 
-              <TimeControl />
+              <GridItem>
+                <TimeControl />
+              </GridItem>
 
-              <GridItem colSpan={2}>
+              <GridItem>
                 <Separator />
               </GridItem>
 
-              <GridItem colSpan={2}>
+              <GridItem>
                 <SaveButton />
               </GridItem>
-              <GridItem colSpan={2}>
+              <GridItem>
                 <CancelActions />
               </GridItem>
             </Grid>
