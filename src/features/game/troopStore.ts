@@ -3,13 +3,13 @@ import { troopActions } from "./troopActions";
 import { troopCreation } from "./troopCreation";
 import { troopMovement } from "./troopMovement";
 import { troopGhostHandling } from "./troopGhostHandling";
-import { troopSelectors } from "./troopSelectors";
 import { fight } from "./combatHandling";
 import { adminStore } from "../interface/adminStore";
 import { mapStore } from "../map/mapStore";
 import { Troop, Civilisation, Position } from "./types";
 import { UNITS_CONFIG } from "../../shared/constants";
 import { CellData } from "../map/types";
+import { factionStore } from "./factionStore";
 
 class TroopStore {
   fightingTroop: Troop | undefined = undefined;
@@ -90,14 +90,8 @@ class TroopStore {
   moveTroop(id: string | number, position: Position) {
     const troop = this.getTroop(id);
     if (troop) {
-      console.log(
-        `Moving troop ${id} to position (${position.x}, ${position.y})`
-      );
       troop.position = position;
       this.setTroop(id, troop);
-      console.log(`Troop after move:`, toJS(troop));
-    } else {
-      console.log(`Troop ${id} not found`);
     }
   }
 
@@ -113,10 +107,8 @@ class TroopStore {
     }
 
     const ghostPositionsJS = toJS(mapStore.ghostPositions);
-    for (const [_team, units] of Object.entries(ghostPositionsJS)) {
-      for (const [_unitId, pos] of Object.entries(
-        units as Record<string, Position>
-      )) {
+    for (const units of Object.values(ghostPositionsJS)) {
+      for (const pos of Object.values(units as Record<string, Position>)) {
         if (pos.x === position.x && pos.y === position.y) {
           return "Déplacement refusé : une position fantôme existe déjà sur la case cible";
         }
@@ -171,39 +163,69 @@ class TroopStore {
   }
 
   get hasTroopOnSelectedCell() {
-    return troopSelectors.hasTroopOnSelectedCell();
+    const position = mapStore.selectedCell?.position;
+    if (!position) return false;
+
+    return this.troops.some(
+      (troop) =>
+        troop.position.x === position.x && troop.position.y === position.y
+    );
   }
 
   get isTroopOwnedBySelectedFaction() {
-    return troopSelectors.isTroopOwnedBySelectedFaction();
+    const position = mapStore.selectedCell?.position;
+    if (!position) return false;
+
+    const troop = this.troops.find(
+      (t) => t.position.x === position.x && t.position.y === position.y
+    );
+    if (!troop) return false;
+
+    return troop.civ === factionStore.getSelectedFaction?.name;
   }
 
   get isSelectedTroopStructure() {
-    return troopSelectors.isSelectedTroopStructure();
+    const position = mapStore.selectedCell?.position;
+    if (!position) return false;
+
+    const troop = this.troops.find(
+      (t) => t.position.x === position.x && t.position.y === position.y
+    );
+    if (!troop) return false;
+
+    return troop.type === "structure";
   }
 
   get isSelectedTroopMob() {
-    return troopSelectors.isSelectedTroopMob();
+    const position = mapStore.selectedCell?.position;
+    if (!position) return false;
+
+    const troop = this.troops.find(
+      (t) => t.position.x === position.x && t.position.y === position.y
+    );
+    if (!troop) return false;
+
+    return troop.type === "infanterie";
   }
 
   get isPVTroop() {
-    return troopSelectors.isPVTroop();
+    return this.isSelectedTroopMob || this.isSelectedTroopStructure;
   }
 
   get getIsMoving() {
-    return troopSelectors.getIsMoving();
+    return troopMovement.isMoving;
   }
 
   get getFightingTroop() {
-    return troopSelectors.getFightingTroop();
+    return this.fightingTroop;
   }
 
   get getTroops() {
-    return troopSelectors.getTroops();
+    return this.troops;
   }
 
   get getGhostTroop() {
-    return troopSelectors.getGhostTroop();
+    return troopGhostHandling.ghostTroop;
   }
 }
 

@@ -1,5 +1,6 @@
 import { makeAutoObservable } from "mobx";
 import { Civilisation, Faction } from "./types";
+import { CIVILISATIONS, FACTION_COLORS } from "../../shared/constants";
 
 class FactionStore {
   factions: Faction[] = [];
@@ -11,24 +12,40 @@ class FactionStore {
 
   fetchFactions() {
     this.addFaction({
-      name: "Imperium",
-      color: "red",
+      name: CIVILISATIONS.IMPERIUM,
+      color: FACTION_COLORS.Imperium,
     });
     this.addFaction({
-      name: "Orks",
-      color: "green",
+      name: CIVILISATIONS.ORKS,
+      color: FACTION_COLORS.Orks,
     });
     this.addFaction({
-      name: "Eldars",
-      color: "teal",
+      name: CIVILISATIONS.ELDARS,
+      color: FACTION_COLORS.Eldars,
     });
     this.addFaction({
-      name: "Chaos",
-      color: "purple",
+      name: CIVILISATIONS.CHAOS,
+      color: FACTION_COLORS.Chaos,
     });
     this.addFaction({
-      name: "Necrons",
-      color: "yellow",
+      name: CIVILISATIONS.NECRONS,
+      color: FACTION_COLORS.Necrons,
+    });
+    this.addFaction({
+      name: CIVILISATIONS.TAU_EMPIRE,
+      color: FACTION_COLORS["T'au Empire"],
+    });
+    this.addFaction({
+      name: CIVILISATIONS.TYRANIDS,
+      color: FACTION_COLORS.Tyranids,
+    });
+    this.addFaction({
+      name: CIVILISATIONS.LEAGUES_OF_VOTANN,
+      color: FACTION_COLORS["Leagues of Votann"],
+    });
+    this.addFaction({
+      name: CIVILISATIONS.DRUKHARI,
+      color: FACTION_COLORS.Drukhari,
     });
   }
 

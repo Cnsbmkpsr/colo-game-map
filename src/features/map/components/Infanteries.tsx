@@ -1,8 +1,8 @@
 import { Instance, InstanceProps, Instances } from "@react-three/drei";
 import { observer } from "mobx-react";
 import { Faction } from "../../game/types";
-import { troopStore } from "../../game/troopStore";
 import { factionStore } from "../../game/factionStore";
+import { troopStore } from "../../game/troopStore";
 
 export type InfanterieProps = {
   x: number;

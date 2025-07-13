@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { OrbitControls } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import { Vector3 } from "three";
@@ -10,15 +9,12 @@ import { mapStore } from "./features/map/mapStore";
 import { factionStore } from "./features/game/factionStore";
 import { troopStore } from "./features/game/troopStore";
 import { adminStore } from "./features/interface/adminStore";
+import { CIVILISATIONS } from "./shared/constants";
 
 function App() {
   useEffect(() => {
     (async function () {
-      await Promise.all([
-        mapStore.fetchMap(),
-        // landStore.fetchLands(),
-        // troopStore.fetchTroops(),
-      ]);
+      await Promise.all([mapStore.fetchMap()]);
       factionStore.fetchFactions();
     })();
   }, []);
@@ -32,33 +28,52 @@ function App() {
   useEffect(() => {
     const handleKeyDown = async (event: KeyboardEvent) => {
       if (!adminStore.getAdmin) return;
-      if (event.key.toLowerCase() === "n") {
-        factionStore.selectFaction("Necrons");
-      }
-      if (event.key.toLowerCase() === "c") {
-        factionStore.selectFaction("Chaos");
-      }
-      if (event.key.toLowerCase() === "o") {
-        factionStore.selectFaction("Orks");
-      }
-      if (event.key.toLowerCase() === "i") {
-        factionStore.selectFaction("Imperium");
-      }
-      if (event.key.toLowerCase() === "s") {
-        await mapStore.save();
-      }
-      if (event.key.toLowerCase() === "m") {
-        const cell = mapStore.getSelectedCell?.cell;
-        if (!cell?.troop) return;
-        troopStore.setIsTroopMoving(true);
-      }
-      if (event.key.toLowerCase() === "f") {
-        const troop = mapStore.getSelectedCell?.cell.troop;
-
-        if (!troop) return;
-
-        document.body.style.cursor = "crosshair";
-        troopStore.setTroopFight(troop);
+      switch (event.key.toLowerCase()) {
+        case "n":
+          factionStore.selectFaction(CIVILISATIONS.NECRONS);
+          break;
+        case "c":
+          factionStore.selectFaction(CIVILISATIONS.CHAOS);
+          break;
+        case "o":
+          factionStore.selectFaction(CIVILISATIONS.ORKS);
+          break;
+        case "i":
+          factionStore.selectFaction(CIVILISATIONS.IMPERIUM);
+          break;
+        case "e":
+          factionStore.selectFaction(CIVILISATIONS.ELDARS);
+          break;
+        case "t":
+          factionStore.selectFaction(CIVILISATIONS.TAU_EMPIRE);
+          break;
+        case "y":
+          factionStore.selectFaction(CIVILISATIONS.TYRANIDS);
+          break;
+        case "l":
+          factionStore.selectFaction(CIVILISATIONS.LEAGUES_OF_VOTANN);
+          break;
+        case "d":
+          factionStore.selectFaction(CIVILISATIONS.DRUKHARI);
+          break;
+        case "s":
+          await mapStore.save();
+          break;
+        case "m": {
+          const cell = mapStore.getSelectedCell?.cell;
+          if (!cell?.troop) return;
+          troopStore.setIsTroopMoving(true);
+          break;
+        }
+        case "f": {
+          const troop = mapStore.getSelectedCell?.cell.troop;
+          if (!troop) return;
+          document.body.style.cursor = "crosshair";
+          troopStore.setTroopFight(troop);
+          break;
+        }
+        default:
+          break;
       }
     };
 
@@ -83,11 +98,7 @@ function App() {
         }}
       >
         <Scene />
-
-        {/* Three JS Elements */}
-        {/* eslint-disable-next-line react/no-unknown-property */}
         <directionalLight position={[0, 10, 0]} intensity={1.2} />
-        {/* eslint-disable-next-line react/no-unknown-property */}
         <ambientLight intensity={0.5} />
         <OrbitControls target={new Vector3(15, 0, 15)} />
       </Canvas>
