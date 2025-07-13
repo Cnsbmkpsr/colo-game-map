@@ -62,7 +62,7 @@ const InfoModalOwnedTroopAction = ({
         Fight
       </Button>
 
-      <Button
+      {/* <Button
         w="full"
         border={`2px solid ${factionColor}`}
         color={"black"}
@@ -70,7 +70,7 @@ const InfoModalOwnedTroopAction = ({
         onClick={handleRemoveTroop}
       >
         Remove Troop
-      </Button>
+      </Button> */}
     </VStack>
   );
 };
