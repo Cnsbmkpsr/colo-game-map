@@ -7,7 +7,7 @@ import InfoModalOwnedLandActions from "./InfoModalLandActions";
 import InfoModalTroopActions from "./InfoModalTroopActions";
 import InfoModalBuyLandAction from "./InfoModalBuyLandAction";
 import { mapStore } from "../../../map/mapStore";
-import InfoModalTroopTimer from "./InfoModalTroopTimer";
+// import InfoModalTroopTimer from "./InfoModalTroopTimer";
 import { troopStore } from "../../../game/troopStore";
 import { landStore } from "../../../game/landStore";
 import { adminStore } from "../../adminStore";
