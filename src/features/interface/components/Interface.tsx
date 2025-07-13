@@ -10,6 +10,7 @@ import AdminControl from "./admin/AdminControl";
 import RoundIndicator from "./RoundIndicator";
 import TeamLogin from "../team/TeamLogin";
 import { observer } from "mobx-react";
+import { Separator } from "../../../shared/components/separator";
 
 const Interface = () => {
   const passwordDisclosure = useDisclosure();
@@ -48,14 +49,21 @@ const Interface = () => {
             borderRadius="md"
             shadow="md"
           >
-            <Grid
-              gap={2}
-              templateColumns="1fr 1fr"
-            >
+            <Grid gap={2} templateColumns="1fr 1fr">
               <GridItem colSpan={2}>
                 <FactionMenu />
               </GridItem>
+
+              <GridItem colSpan={2}>
+                <Separator />
+              </GridItem>
+
               <AdminControl />
+
+              <GridItem colSpan={2}>
+                <Separator />
+              </GridItem>
+
               <GridItem colSpan={2}>
                 <SaveButton />
               </GridItem>
