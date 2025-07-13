@@ -32,13 +32,12 @@ const InfoModalContent = observer(() => {
   }, []);
 
   // Identify the selected faction based on the troop's civilization
-  const selectedFaction = selectedTroop ? factionStore.factions.find(faction => faction.name === selectedTroop.civ) : null;
+  // const selectedFaction = selectedTroop ? factionStore.factions.find(faction => faction.name === selectedTroop.civ) : null;
   const isTeamTurn = adminStore.loggedInTeam === adminStore.activeTeam;
 
   useEffect(() => {
     infoModalStore.onRefresh();
   }, [selectedCell, selectedTroop]);
-
 
   return (
     <VStack spacing={4} p="2" pb="1">
@@ -49,11 +48,13 @@ const InfoModalContent = observer(() => {
         <>
           <Box w="full">{objectToJSX(infoModalStore.getDescription, 0)}</Box>
 
-          {selectedTroop && isTeamTurn && selectedTroop.civ === adminStore.activeTeam && (
-            <Button onClick={handleMoveUnit} colorScheme="blue">
-              Déplacer l&apos;unitée
-            </Button>
-          )}
+          {selectedTroop &&
+            isTeamTurn &&
+            selectedTroop.civ === adminStore.activeTeam && (
+              <Button onClick={handleMoveUnit} colorScheme="blue">
+                Déplacer l&apos;unitée
+              </Button>
+            )}
 
           {selectedTroop && selectedTroop.type !== "structure" && (
             <>
@@ -61,7 +62,6 @@ const InfoModalContent = observer(() => {
               <InfoModalTroopTimer timeToAdd={1000 * 30} />
             </>
           )}
-          
         </>
       )}
 
@@ -72,14 +72,11 @@ const InfoModalContent = observer(() => {
         </>
       )}
 
-      {factionStore.getSelectedFaction !== null &&
-        !landStore.isOwned && (
-          <InfoModalBuyLandAction
-            factionColor={factionStore.getSelectedFaction.color}
-          />
-        )}
-
-
+      {factionStore.getSelectedFaction !== null && !landStore.isOwned && (
+        <InfoModalBuyLandAction
+          factionColor={factionStore.getSelectedFaction.color}
+        />
+      )}
     </VStack>
   );
 });

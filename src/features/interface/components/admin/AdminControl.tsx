@@ -1,7 +1,6 @@
-import React from 'react';
-import { observer } from 'mobx-react';
-import { Button } from '@chakra-ui/react';
-import { adminStore } from '../../adminStore';
+import { observer } from "mobx-react";
+import { Button } from "@chakra-ui/react";
+import { adminStore } from "../../adminStore";
 
 const AdminControl = () => {
   const handleStart = () => {

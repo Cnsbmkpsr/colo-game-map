@@ -1,4 +1,4 @@
-import { VStack, Button, ButtonGroup, Input, Select } from "@chakra-ui/react";
+import { VStack, Button, Input, Select } from "@chakra-ui/react";
 import { observer } from "mobx-react";
 import { useState } from "react";
 import { troopStore } from "../../../game/troopStore";
@@ -16,6 +16,8 @@ const InfoModalBuyTroopsActions = ({
   const [selectedUnitType, setSelectedUnitType] = useState("ground");
   const [pv, setPv] = useState(0);
 
+  console.log(pv);
+
   const handleChangePv = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPv(Number(e.target.value));
   };
@@ -26,30 +28,37 @@ const InfoModalBuyTroopsActions = ({
 
   const handleBuyUnit = async () => {
     const id = `${selectedUnitType}-${Date.now()}`;
-    const name = `${selectedUnitType.charAt(0).toUpperCase() + selectedUnitType.slice(1)} Unit`;
-    const position: Position = mapStore.selectedCell?.position || { x: 0, y: 0 }; // Use selected cell position or default
+    const name = `${
+      selectedUnitType.charAt(0).toUpperCase() + selectedUnitType.slice(1)
+    } Unit`;
+    const position: Position = mapStore.selectedCell?.position || {
+      x: 0,
+      y: 0,
+    }; // Use selected cell position or default
     const selectedCiv = infoModalStore.currentCivilisation || "Orks"; // Use current civilization or default
 
     if (selectedUnitType === "ground") {
-      troopStore.addTroop(troopStore.createGroundUnit(id, name, selectedCiv, position));
+      troopStore.addTroop(
+        troopStore.createGroundUnit(id, name, selectedCiv, position)
+      );
     } else if (selectedUnitType === "heavy") {
-      troopStore.addTroop(troopStore.createHeavyUnit(id, name, selectedCiv, position));
+      troopStore.addTroop(
+        troopStore.createHeavyUnit(id, name, selectedCiv, position)
+      );
     } else if (selectedUnitType === "flying") {
-      troopStore.addTroop(troopStore.createFlyingUnit(id, name, selectedCiv, position));
+      troopStore.addTroop(
+        troopStore.createFlyingUnit(id, name, selectedCiv, position)
+      );
     }
 
     mapStore.updateMap();
     mapStore.refreshSelectedCell();
 
     await mapStore.save();
-
-
   };
 
   return (
     <VStack spacing={1} w="full">
-
-
       <Select placeholder="Select Unit Type" onChange={handleUnitTypeChange}>
         <option value="ground">Ground Unit</option>
         <option value="heavy">Heavy Unit</option>
@@ -63,11 +72,12 @@ const InfoModalBuyTroopsActions = ({
         bg="transparent"
         onClick={handleBuyUnit}
       >
-        Buy {selectedUnitType.charAt(0).toUpperCase() + selectedUnitType.slice(1)} Unit
+        Buy{" "}
+        {selectedUnitType.charAt(0).toUpperCase() + selectedUnitType.slice(1)}{" "}
+        Unit
       </Button>
 
       <Input type="number" placeholder="PV" onChange={handleChangePv} />
-
     </VStack>
   );
 };

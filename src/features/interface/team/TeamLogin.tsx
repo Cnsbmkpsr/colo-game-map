@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
-import { observer } from 'mobx-react';
-import { Box, Button, Input, Select, VStack } from '@chakra-ui/react';
-import { adminStore } from '../adminStore';
-import { CONFIG } from '../config';
-import { Civilisation } from '../../game/types';
+import { useState } from "react";
+import { observer } from "mobx-react";
+import { Box, Button, Input, Select, VStack } from "@chakra-ui/react";
+import { adminStore } from "../adminStore";
+import { CONFIG } from "../config";
+import { Civilisation } from "../../game/types";
 
 const TeamLogin = () => {
-  const [selectedTeam, setSelectedTeam] = useState<Civilisation | ''>('');
-  const [password, setPassword] = useState<string>('');
+  const [selectedTeam, setSelectedTeam] = useState<Civilisation | "">("");
+  const [password, setPassword] = useState<string>("");
 
   const handleLogin = () => {
     if (selectedTeam) {
@@ -15,17 +15,20 @@ const TeamLogin = () => {
       if (teamCredentials && teamCredentials.password === password) {
         adminStore.setTeamLogin(selectedTeam);
       } else {
-        alert('Incorrect password!');
+        alert("Incorrect password!");
       }
     } else {
-      alert('Please select a team!');
+      alert("Please select a team!");
     }
   };
 
   return (
     <Box p={4} bg="white" borderRadius="md" boxShadow="md">
       <VStack spacing={4}>
-        <Select placeholder="Select Team" onChange={(e) => setSelectedTeam(e.target.value as Civilisation)}>
+        <Select
+          placeholder="Select Team"
+          onChange={(e) => setSelectedTeam(e.target.value as Civilisation)}
+        >
           {CONFIG.teams.map((team) => (
             <option key={team} value={team}>
               {team}
