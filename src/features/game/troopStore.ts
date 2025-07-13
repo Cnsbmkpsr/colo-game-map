@@ -9,6 +9,7 @@ import { adminStore } from "../interface/adminStore";
 import { mapStore } from "../map/mapStore";
 import { Troop, Civilisation, Position } from "./types";
 import { UNITS_CONFIG } from "../../shared/constants";
+import { CellData } from "../map/types";
 
 class TroopStore {
   fightingTroop: Troop | undefined = undefined;
@@ -27,8 +28,15 @@ class TroopStore {
 
     this.troops.forEach((troop) => {
       if (troop.civ === activeTeam) {
-        if (troopGhostHandling.ghostTroop && troopGhostHandling.ghostPosition && troopGhostHandling.ghostTroop.id === troop.id) {
-          troopMovement.validateMoveTroop(troop.id, troopGhostHandling.ghostPosition);
+        if (
+          troopGhostHandling.ghostTroop &&
+          troopGhostHandling.ghostPosition &&
+          troopGhostHandling.ghostTroop.id === troop.id
+        ) {
+          troopMovement.validateMoveTroop(
+            troop.id,
+            troopGhostHandling.ghostPosition
+          );
         }
       }
     });
@@ -52,24 +60,41 @@ class TroopStore {
     troopActions.setTroop(id, troop);
   }
 
-  createGroundUnit(id: string, name: string, civ: Civilisation, position: Position) {
+  createGroundUnit(
+    id: string,
+    name: string,
+    civ: Civilisation,
+    position: Position
+  ) {
     return troopCreation.createGroundUnit(id, name, civ, position);
   }
 
-  createHeavyUnit(id: string, name: string, civ: Civilisation, position: Position) {
+  createHeavyUnit(
+    id: string,
+    name: string,
+    civ: Civilisation,
+    position: Position
+  ) {
     return troopCreation.createHeavyUnit(id, name, civ, position);
   }
 
-  createFlyingUnit(id: string, name: string, civ: Civilisation, position: Position) {
+  createFlyingUnit(
+    id: string,
+    name: string,
+    civ: Civilisation,
+    position: Position
+  ) {
     return troopCreation.createFlyingUnit(id, name, civ, position);
   }
 
   moveTroop(id: string | number, position: Position) {
     const troop = this.getTroop(id);
     if (troop) {
-      console.log(`Moving troop ${id} to position (${position.x}, ${position.y})`);
-      troop.position = position; // Ensure this updates the troop's position
-      this.setTroop(id, troop); // Save the updated troop back to the store
+      console.log(
+        `Moving troop ${id} to position (${position.x}, ${position.y})`
+      );
+      troop.position = position;
+      this.setTroop(id, troop);
       console.log(`Troop after move:`, toJS(troop));
     } else {
       console.log(`Troop ${id} not found`);
@@ -79,43 +104,41 @@ class TroopStore {
   validateMoveTroop(id: string | number, position: Position): string | null {
     const troop = this.getTroop(id);
     if (!troop) return "Troupe non trouvée";
-  
+
     const distance = calculateDistance(troop.position, position);
     const unitConfig = UNITS_CONFIG[troop.type];
-  
+
     if (distance > unitConfig.vitDep) {
       return "Le déplacement dépasse les points de mouvement de l'unité";
     }
-  
-    // Vérifier les positions fantômes existantes
+
     const ghostPositionsJS = toJS(mapStore.ghostPositions);
-    for (const [team, units] of Object.entries(ghostPositionsJS)) {
-      for (const [unitId, pos] of Object.entries(units as Record<string, Position>)) {
+    for (const [_team, units] of Object.entries(ghostPositionsJS)) {
+      for (const [_unitId, pos] of Object.entries(
+        units as Record<string, Position>
+      )) {
         if (pos.x === position.x && pos.y === position.y) {
           return "Déplacement refusé : une position fantôme existe déjà sur la case cible";
         }
       }
     }
-  
+
     const targetCellTroops = this.troops.filter(
       (t) => t.position.x === position.x && t.position.y === position.y
     );
-  
+
     const allyTroop = targetCellTroops.find((t) => t.civ === troop.civ);
     if (allyTroop) {
       return "Déplacement refusé : une unité alliée est présente sur la case cible";
     }
-  
+
     const enemyTroops = targetCellTroops.filter((t) => t.civ !== troop.civ);
     if (enemyTroops.length > 1) {
       return "Déplacement refusé : plus d'une unité ennemie présente sur la case cible";
     }
-  
+
     return null;
   }
-  
-  
-  
 
   setIsTroopMoving(isMoving: boolean) {
     this.isTroopMoving = isMoving;
@@ -137,8 +160,8 @@ class TroopStore {
     const mapData = mapStore.getMapData;
     const troops = mapData
       .flat()
-      .filter((cell) => cell.troop)
-      .map((cell) => cell.troop) as Troop[];
+      .filter((cell: CellData) => cell.troop)
+      .map((cell: CellData) => cell.troop) as Troop[];
 
     troopActions.troops = troops;
   }
@@ -187,7 +210,6 @@ class TroopStore {
 const troopStore = new TroopStore();
 export { troopStore };
 
-// Helper function to calculate distance
 function calculateDistance(pos1: Position, pos2: Position): number {
   return Math.abs(pos1.x - pos2.x) + Math.abs(pos1.y - pos2.y);
 }

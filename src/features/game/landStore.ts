@@ -2,6 +2,7 @@ import { makeAutoObservable, toJS } from "mobx";
 import { Land } from "./types";
 import { mapStore } from "../map/mapStore";
 import { factionStore } from "./factionStore";
+import { CellData } from "../map/types";
 
 class LandStore {
   lands: Land[] = [];
@@ -14,8 +15,8 @@ class LandStore {
     const mapData = mapStore.getMapData;
     const lands = mapData
       .flat()
-      .filter((cell) => cell.owner)
-      .map((cell) => {
+      .filter((cell: CellData) => cell.owner)
+      .map((cell: CellData) => {
         return {
           owner: cell.owner?.faction.name,
           position: toJS(cell.owner?.position),

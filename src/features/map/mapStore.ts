@@ -75,10 +75,10 @@ class MapStore {
   async applyGhostPositions() {
     const team = adminStore.activeTeam;
     if (!team) return;
-  
+
     const ghostPositions = this.ghostPositions[team];
     if (!ghostPositions) return;
-  
+
     runInAction(async () => {
       for (const [unitId, pos] of Object.entries(ghostPositions)) {
         const troop = troopStore.getTroop(unitId);
@@ -86,9 +86,9 @@ class MapStore {
           const targetCellTroops = troopStore.troops.filter(
             (t) => t.position.x === pos.x && t.position.y === pos.y
           );
-  
+
           const enemyTroop = targetCellTroops.find((t) => t.civ !== troop.civ);
-  
+
           if (enemyTroop) {
             await fight(troop, enemyTroop);
             console.log(unitId, pos);
@@ -100,7 +100,7 @@ class MapStore {
           }
         }
       }
-  
+
       setTimeout(async () => {
         runInAction(() => {
           this.ghostPositions[team] = {};
@@ -112,7 +112,6 @@ class MapStore {
       }, 1000);
     });
   }
-  
 
   watchGhostPositions() {
     ghostPositionService.watch((ghostPositionData) => {
@@ -169,8 +168,10 @@ class MapStore {
         })();
 
         const ghostPosition = (() => {
-          for (const [team, units] of Object.entries(ghostPositionsJS)) {
-            for (const [unitId, pos] of Object.entries(units as Record<string, Position>)) {
+          for (const [_team, units] of Object.entries(ghostPositionsJS)) {
+            for (const [unitId, pos] of Object.entries(
+              units as Record<string, Position>
+            )) {
               if (pos.x === x && pos.y === y) {
                 return { unitId, position: pos };
               }
@@ -205,29 +206,30 @@ class MapStore {
   }
 
   async moveHunterToTargetPosition(hunterId: string, targetPosition: Position) {
-    console.log(`Starting moveHunterToTargetPosition for hunterId: ${hunterId} to position (${targetPosition.x}, ${targetPosition.y})`);
-  
+    console.log(
+      `Starting moveHunterToTargetPosition for hunterId: ${hunterId} to position (${targetPosition.x}, ${targetPosition.y})`
+    );
+
     runInAction(() => {
-      console.log('Before moving troop:', toJS(troopStore.getTroop(hunterId)));
+      console.log("Before moving troop:", toJS(troopStore.getTroop(hunterId)));
       troopStore.moveTroop(hunterId, targetPosition);
-      console.log('After moving troop:', toJS(troopStore.getTroop(hunterId)));
+      console.log("After moving troop:", toJS(troopStore.getTroop(hunterId)));
     });
-  
+
     runInAction(() => {
-      console.log('Before updating map:');
-      console.log('Map Data:', toJS(this.mapData));
+      console.log("Before updating map:");
+      console.log("Map Data:", toJS(this.mapData));
       this.updateMap();
-      console.log('After updating map:');
-      console.log('Map Data:', toJS(this.mapData));
+      console.log("After updating map:");
+      console.log("Map Data:", toJS(this.mapData));
       this.refreshSelectedCell();
     });
-  
+
     setTimeout(async () => {
-      console.log('Saving map...');
+      console.log("Saving map...");
       await this.save();
     }, 1000);
   }
-  
 
   getCell(x: number, y: number) {
     return this.mapData[y][x];

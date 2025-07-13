@@ -1,4 +1,3 @@
-// realTimeDBService.ts
 import { get, getDatabase, onValue, ref, remove, set } from "firebase/database";
 import { app } from "../../firebase";
 import { Position } from "../../features/game/types";
@@ -53,10 +52,17 @@ export class RealtimeService {
     }
   }
 
-  async saveGhostPosition(unitId: string, position: { x: number, y: number }, team: string): Promise<void> {
+  async saveGhostPosition(
+    unitId: string,
+    position: { x: number; y: number },
+    team: string
+  ): Promise<void> {
     try {
       const ghostPositionRef = ref(db, `ghostPositions/${team}/${unitId}`);
-      console.log(`Saving ghost position at path: ghostPositions/${team}/${unitId} with data:`, position);
+      console.log(
+        `Saving ghost position at path: ghostPositions/${team}/${unitId} with data:`,
+        position
+      );
       await set(ghostPositionRef, position);
       console.log("Ghost position saved successfully");
     } catch (error) {
@@ -64,20 +70,25 @@ export class RealtimeService {
     }
   }
 
-  async fetchGhostPositions(team: string): Promise<Record<string, Record<string, Position>> | null> {
+  async fetchGhostPositions(
+    team: string
+  ): Promise<Record<string, Record<string, Position>> | null> {
     try {
       const ghostPositionRef = ref(db, `ghostPositions/${team}`);
       console.log(`Fetching ghost positions from path: ghostPositions/${team}`);
       const docSnap = await get(ghostPositionRef);
       if (docSnap.exists()) {
         console.log("Ghost positions fetched successfully:", docSnap.val());
-        const rawPositions: Record<string, { x: number; y: number }> = docSnap.val();
+        const rawPositions: Record<string, { x: number; y: number }> =
+          docSnap.val();
         const convertedPositions: Record<string, Record<string, Position>> = {
           [team]: Object.fromEntries(
-            Object.entries(rawPositions).map(([unitId, pos]) => [
-              unitId,
-              { x: pos.x, y: pos.y },
-            ])
+            Object.entries(rawPositions).map(
+              ([unitId, pos]: [string, Position]) => [
+                unitId,
+                { x: pos.x, y: pos.y },
+              ]
+            )
           ),
         };
         return convertedPositions;
@@ -90,7 +101,6 @@ export class RealtimeService {
       return null;
     }
   }
-  
 
   async clearGhostPositions(team: string): Promise<void> {
     try {
