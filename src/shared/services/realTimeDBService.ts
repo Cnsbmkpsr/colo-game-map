@@ -22,7 +22,7 @@ export class RealtimeService {
   async set(data: string): Promise<void> {
     try {
       await set(this.keyRef, data as any);
-      console.log("Document créé avec succès");
+      console.log(`Document créé avec succès: ${this.keyName}`);
     } catch (error) {
       console.error("Erreur lors de la création du document :", error);
     }
@@ -34,7 +34,7 @@ export class RealtimeService {
       if (docSnap.exists() && docSnap.key) {
         return { id: docSnap.key, data: docSnap.val() };
       } else {
-        console.log("Document introuvable");
+        console.log(`Document introuvable: ${this.keyName}`);
         return null;
       }
     } catch (error) {
@@ -46,7 +46,7 @@ export class RealtimeService {
   async delete(): Promise<void> {
     try {
       await remove(this.keyRef);
-      console.log("Document supprimé avec succès");
+      console.log(`Document supprimé avec succès: ${this.keyName}`);
     } catch (error) {
       console.error("Erreur lors de la suppression du document :", error);
     }
