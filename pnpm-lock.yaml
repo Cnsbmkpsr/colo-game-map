@@ -8,9 +8,6 @@ importers:
 
   .:
     dependencies:
-      '@chakra-ui/icons':
-        specifier: 2.0.19
-        version: 2.0.19(@chakra-ui/system@2.5.8(@emotion/react@11.11.1(@types/react@18.3.23)(react@18.2.0))(@emotion/styled@11.11.0(@emotion/react@11.11.1(@types/react@18.3.23)(react@18.2.0))(@types/react@18.3.23)(react@18.2.0))(react@18.2.0))(react@18.2.0)
       '@chakra-ui/react':
         specifier: 2.7.1
         version: 2.7.1(@emotion/react@11.11.1(@types/react@18.3.23)(react@18.2.0))(@emotion/styled@11.11.0(@emotion/react@11.11.1(@types/react@18.3.23)(react@18.2.0))(@types/react@18.3.23)(react@18.2.0))(@types/react@18.3.23)(framer-motion@10.12.18(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
@@ -20,6 +17,15 @@ importers:
       '@emotion/styled':
         specifier: 11.11.0
         version: 11.11.0(@emotion/react@11.11.1(@types/react@18.3.23)(react@18.2.0))(@types/react@18.3.23)(react@18.2.0)
+      '@fortawesome/fontawesome-svg-core':
+        specifier: ^6.7.2
+        version: 6.7.2
+      '@fortawesome/free-solid-svg-icons':
+        specifier: ^6.7.2
+        version: 6.7.2
+      '@fortawesome/react-fontawesome':
+        specifier: ^0.2.2
+        version: 0.2.2(@fortawesome/fontawesome-svg-core@6.7.2)(react@18.2.0)
       '@react-spring/three':
         specifier: 9.7.3
         version: 9.7.3(@react-three/fiber@8.13.5(@types/react@18.3.23)(react-dom@18.2.0(react@18.2.0))(react-native@0.71.19(@babel/core@7.28.0)(@babel/preset-env@7.28.0(@babel/core@7.28.0))(encoding@0.1.13)(react@18.2.0))(react@18.2.0)(three@0.154.0))(react@18.2.0)(three@0.154.0)
@@ -985,12 +991,6 @@ packages:
       '@chakra-ui/system': '>=2.0.0'
       react: '>=18'
 
-  '@chakra-ui/icons@2.0.19':
-    resolution: {integrity: sha512-0A6U1ZBZhLIxh3QgdjuvIEhAZi3B9v8g6Qvlfa3mu6vSnXQn2CHBZXmJwxpXxO40NK/2gj/gKXrLeUaFR6H/Qw==}
-    peerDependencies:
-      '@chakra-ui/system': '>=2.0.0'
-      react: '>=18'
-
   '@chakra-ui/image@2.0.16':
     resolution: {integrity: sha512-iFypk1slgP3OK7VIPOtkB0UuiqVxNalgA59yoRM43xLIeZAEZpKngUVno4A2kFS61yKN0eIY4hXD3Xjm+25EJA==}
     peerDependencies:
@@ -1737,6 +1737,24 @@ packages:
 
   '@firebase/webchannel-wrapper@0.10.1':
     resolution: {integrity: sha512-Dq5rYfEpdeel0bLVN+nfD1VWmzCkK+pJbSjIawGE+RY4+NIJqhbUDDQjvV0NUK84fMfwxvtFoCtEe70HfZjFcw==}
+
+  '@fortawesome/fontawesome-common-types@6.7.2':
+    resolution: {integrity: sha512-Zs+YeHUC5fkt7Mg1l6XTniei3k4bwG/yo3iFUtZWd/pMx9g3fdvkSK9E0FOC+++phXOka78uJcYb8JaFkW52Xg==}
+    engines: {node: '>=6'}
+
+  '@fortawesome/fontawesome-svg-core@6.7.2':
+    resolution: {integrity: sha512-yxtOBWDrdi5DD5o1pmVdq3WMCvnobT0LU6R8RyyVXPvFRd2o79/0NCuQoCjNTeZz9EzA9xS3JxNWfv54RIHFEA==}
+    engines: {node: '>=6'}
+
+  '@fortawesome/free-solid-svg-icons@6.7.2':
+    resolution: {integrity: sha512-GsBrnOzU8uj0LECDfD5zomZJIjrPhIlWU82AHwa2s40FKH+kcxQaBvBo3Z4TxyZHIyX8XTDxsyA33/Vx9eFuQA==}
+    engines: {node: '>=6'}
+
+  '@fortawesome/react-fontawesome@0.2.2':
+    resolution: {integrity: sha512-EnkrprPNqI6SXJl//m29hpaNzOp1bruISWaOiRtkMi/xSvHJlzc2j2JAYS7egxt/EbjSNV/k6Xy0AQI6vB2+1g==}
+    peerDependencies:
+      '@fortawesome/fontawesome-svg-core': ~1 || ~6
+      react: '>=16.3'
 
   '@google-cloud/paginator@4.0.1':
     resolution: {integrity: sha512-6G1ui6bWhNyHjmbYwavdN7mpVPRBtyDg/bfqBTAlwr413On2TnFNfDxc9UhTJctkgoCDgQXEKiRPLPR9USlkbQ==}
@@ -8307,12 +8325,6 @@ snapshots:
       '@chakra-ui/system': 2.5.8(@emotion/react@11.11.1(@types/react@18.3.23)(react@18.2.0))(@emotion/styled@11.11.0(@emotion/react@11.11.1(@types/react@18.3.23)(react@18.2.0))(@types/react@18.3.23)(react@18.2.0))(react@18.2.0)
       react: 18.2.0
 
-  '@chakra-ui/icons@2.0.19(@chakra-ui/system@2.5.8(@emotion/react@11.11.1(@types/react@18.3.23)(react@18.2.0))(@emotion/styled@11.11.0(@emotion/react@11.11.1(@types/react@18.3.23)(react@18.2.0))(@types/react@18.3.23)(react@18.2.0))(react@18.2.0))(react@18.2.0)':
-    dependencies:
-      '@chakra-ui/icon': 3.0.16(@chakra-ui/system@2.5.8(@emotion/react@11.11.1(@types/react@18.3.23)(react@18.2.0))(@emotion/styled@11.11.0(@emotion/react@11.11.1(@types/react@18.3.23)(react@18.2.0))(@types/react@18.3.23)(react@18.2.0))(react@18.2.0))(react@18.2.0)
-      '@chakra-ui/system': 2.5.8(@emotion/react@11.11.1(@types/react@18.3.23)(react@18.2.0))(@emotion/styled@11.11.0(@emotion/react@11.11.1(@types/react@18.3.23)(react@18.2.0))(@types/react@18.3.23)(react@18.2.0))(react@18.2.0)
-      react: 18.2.0
-
   '@chakra-ui/image@2.0.16(@chakra-ui/system@2.5.8(@emotion/react@11.11.1(@types/react@18.3.23)(react@18.2.0))(@emotion/styled@11.11.0(@emotion/react@11.11.1(@types/react@18.3.23)(react@18.2.0))(@types/react@18.3.23)(react@18.2.0))(react@18.2.0))(react@18.2.0)':
     dependencies:
       '@chakra-ui/react-use-safe-layout-effect': 2.0.5(react@18.2.0)
@@ -9353,6 +9365,22 @@ snapshots:
       tslib: 2.8.1
 
   '@firebase/webchannel-wrapper@0.10.1': {}
+
+  '@fortawesome/fontawesome-common-types@6.7.2': {}
+
+  '@fortawesome/fontawesome-svg-core@6.7.2':
+    dependencies:
+      '@fortawesome/fontawesome-common-types': 6.7.2
+
+  '@fortawesome/free-solid-svg-icons@6.7.2':
+    dependencies:
+      '@fortawesome/fontawesome-common-types': 6.7.2
+
+  '@fortawesome/react-fontawesome@0.2.2(@fortawesome/fontawesome-svg-core@6.7.2)(react@18.2.0)':
+    dependencies:
+      '@fortawesome/fontawesome-svg-core': 6.7.2
+      prop-types: 15.8.1
+      react: 18.2.0
 
   '@google-cloud/paginator@4.0.1':
     dependencies:
