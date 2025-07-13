@@ -10,8 +10,9 @@ import {
   MenuList,
 } from "@chakra-ui/react";
 import { useCallback } from "react";
-import { ChevronDownIcon } from "@chakra-ui/icons";
 import { Civilisation } from "../../game/types";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 
 const FactionMenu = () => {
   const handleSelect = useCallback(
@@ -32,7 +33,7 @@ const FactionMenu = () => {
 
   return (
     <Menu>
-      <MenuButton as={Button} rightIcon={<ChevronDownIcon />} width="100%">
+      <MenuButton as={Button} rightIcon={<FontAwesomeIcon icon={faChevronDown} />} width="100%">
         {selectedFaction ? (
           <Flex alignItems="center">
             <Box

@@ -2,7 +2,7 @@ import { observer } from "mobx-react";
 import { Button, GridItem } from "@chakra-ui/react";
 import { adminStore } from "../../adminStore";
 
-const AdminControl = () => {
+const TimeControl = () => {
   const handleStart = () => {
     adminStore.startRounds();
   };
@@ -14,12 +14,12 @@ const AdminControl = () => {
   return (
     <>
       <GridItem>
-        <Button onClick={handleStart} colorScheme="green">
+        <Button onClick={handleStart} colorScheme="green" width="100%">
           Start Rounds
         </Button>
       </GridItem>
       <GridItem>
-        <Button onClick={handlePause} colorScheme="red">
+        <Button onClick={handlePause} colorScheme="red" width="100%">
           Pause Rounds
         </Button>
       </GridItem>
@@ -27,4 +27,4 @@ const AdminControl = () => {
   );
 };
 
-export default observer(AdminControl);
+export default observer(TimeControl);

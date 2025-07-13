@@ -6,7 +6,7 @@ import SaveButton from "./SaveButton";
 import { adminStore } from "../adminStore";
 import { useEffect } from "react";
 import PasswordModal from "./PasswordModal";
-import AdminControl from "./admin/AdminControl";
+import TimeControl from "./admin/TimeControl";
 import RoundIndicator from "./RoundIndicator";
 import TeamLogin from "../team/TeamLogin";
 import { observer } from "mobx-react";
@@ -58,7 +58,7 @@ const Interface = () => {
                 <Separator />
               </GridItem>
 
-              <AdminControl />
+              <TimeControl />
 
               <GridItem colSpan={2}>
                 <Separator />

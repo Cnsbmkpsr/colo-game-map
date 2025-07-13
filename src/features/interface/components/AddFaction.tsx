@@ -1,4 +1,6 @@
-import { AddIcon } from "@chakra-ui/icons";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPlus } from '@fortawesome/free-solid-svg-icons'
+
 import { IconButton } from "@chakra-ui/react";
 import { observer } from "mobx-react";
 
@@ -16,7 +18,7 @@ const AddFaction = ({ onOpen }: AddFactionProps) => {
       bg="green.300"
       _hover={{ bg: "green.400" }}
       aria-label="Add faction button"
-      icon={<AddIcon color="white" />}
+      icon={<FontAwesomeIcon icon={faPlus} color="white" />}
       onClick={handleOnClick}
     />
   );
