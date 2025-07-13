@@ -1,4 +1,4 @@
-import { HStack, VStack, useDisclosure, Box } from "@chakra-ui/react";
+import { HStack, useDisclosure, Box } from "@chakra-ui/react";
 import InfoModal from "./InfoModal/InfoModal";
 import FactionMenu from "./FactionMenu";
 import CancelActions from "./CancelActions";
@@ -26,7 +26,12 @@ const Interface = () => {
       <InfoModal />
       <RoundIndicator />
       {!adminStore.getAdmin && !adminStore.isLoggedInTeam && (
-        <Box position="absolute" top="50%" left="50%" transform="translate(-50%, -50%)">
+        <Box
+          position="absolute"
+          top="50%"
+          left="50%"
+          transform="translate(-50%, -50%)"
+        >
           <TeamLogin />
         </Box>
       )}

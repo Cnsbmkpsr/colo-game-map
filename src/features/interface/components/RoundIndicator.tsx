@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import { observer } from 'mobx-react';
-import { Progress, Text, Box, VStack } from '@chakra-ui/react';
-import { adminStore } from '../adminStore';
-import { CONFIG } from '../config';
+import { useEffect, useState } from "react";
+import { observer } from "mobx-react";
+import { Progress, Text, Box, VStack } from "@chakra-ui/react";
+import { adminStore } from "../adminStore";
+import { CONFIG } from "../config";
 
 const RoundIndicator = () => {
   const [timeRemaining, setTimeRemaining] = useState(adminStore.remainingTime);
@@ -35,8 +35,8 @@ const RoundIndicator = () => {
     <Box
       position="fixed"
       top="0"
-      width={{ base: '100%', md: '50%' }} // Full width on mobile, 50% width on non-mobile
-      left={{ base: '0', md: '25%' }} // Centered on non-mobile
+      width={{ base: "100%", md: "50%" }} // Full width on mobile, 50% width on non-mobile
+      left={{ base: "0", md: "25%" }} // Centered on non-mobile
       bg="white"
       p={4}
       borderRadius="md"
@@ -44,10 +44,24 @@ const RoundIndicator = () => {
       transform="translateX(0)" // Ensure it's centered on mobile
     >
       <VStack spacing={2} alignItems="stretch">
-        <Text fontSize="xl" fontWeight="bold">{`L'équipe qui joue est: ${adminStore.activeTeam}`}</Text>
-        {isTeamTurn && <Text fontSize="lg" color="green.500">{`C'est à ton équipe de jouer !`}</Text>}
-        <Progress value={(timeRemaining / CONFIG.roundDuration) * 100} size="lg" colorScheme="blue" />
-        <Text alignSelf="flex-end">{`Temps restant: ${Math.ceil(timeRemaining / 1000)}s`}</Text>
+        <Text
+          fontSize="xl"
+          fontWeight="bold"
+        >{`L'équipe qui joue est: ${adminStore.activeTeam}`}</Text>
+        {isTeamTurn && (
+          <Text
+            fontSize="lg"
+            color="green.500"
+          >{`C'est à ton équipe de jouer !`}</Text>
+        )}
+        <Progress
+          value={(timeRemaining / CONFIG.roundDuration) * 100}
+          size="lg"
+          colorScheme="blue"
+        />
+        <Text alignSelf="flex-end">{`Temps restant: ${Math.ceil(
+          timeRemaining / 1000
+        )}s`}</Text>
       </VStack>
     </Box>
   );
