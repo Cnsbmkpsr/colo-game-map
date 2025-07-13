@@ -22,6 +22,7 @@ const RoundIndicator = () => {
   }, []);
 
   const isTeamTurn = adminStore.loggedInTeam === adminStore.activeTeam;
+  const nextTeams = adminStore.nextTeams;
 
   useEffect(() => {
     adminStore.loadState();
@@ -44,10 +45,12 @@ const RoundIndicator = () => {
       transform="translateX(0)" // Ensure it's centered on mobile
     >
       <VStack spacing={2} alignItems="stretch">
-        <Text
-          fontSize="xl"
-          fontWeight="bold"
-        >{`L'équipe qui joue est: ${adminStore.activeTeam}`}</Text>
+        <Text fontSize="xl" fontWeight="bold">
+          {`L'équipe qui joue est: ${adminStore.activeTeam}`}
+          {nextTeams.map((team, index) => (
+            <span key={index} style={{ color: "gray" }}>{` → ${team}`}</span>
+          ))}
+        </Text>
         {isTeamTurn && (
           <Text
             fontSize="lg"

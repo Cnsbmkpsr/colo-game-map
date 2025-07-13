@@ -108,6 +108,12 @@ class AdminStore {
     return CONFIG.teams[this.activeTeamIndex];
   }
 
+  get nextTeams(): Civilisation[] {
+    return CONFIG.teams.slice(this.activeTeamIndex + 1).concat(
+      CONFIG.teams.slice(0, this.activeTeamIndex)
+    );
+  }
+
   // Sync state with backend
   syncState() {
     const state = {
