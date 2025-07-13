@@ -1,7 +1,7 @@
 import { Box, Heading, VStack, Button } from "@chakra-ui/react";
 import { observer } from "mobx-react";
 import { infoModalStore } from "../../infoModalStore";
-import { objectToJSX } from "../../utils/objToJSX";
+import { objectToJSXWithIcons } from "../../utils/objToJSXWithIcons";
 import { factionStore } from "../../../game/factionStore";
 import InfoModalOwnedLandActions from "./InfoModalLandActions";
 import InfoModalTroopActions from "./InfoModalTroopActions";
@@ -13,6 +13,7 @@ import { adminStore } from "../../adminStore";
 import { useEffect, useState } from "react";
 import { autorun } from "mobx";
 import InfoModalAdminActions from "./InfoModalAdminActions";
+import { FlyingFlag } from "react-game-icons-auto";
 
 const InfoModalContent = observer(() => {
   const [selectedCell, setSelectedCell] = useState(mapStore.getSelectedCell);
@@ -32,6 +33,9 @@ const InfoModalContent = observer(() => {
   }, []);
 
   const isTeamTurn = adminStore.loggedInTeam === adminStore.activeTeam;
+  
+  // Détermine si on affiche une unité avec décalage (tuile sélectionnée + troupe présente)
+  const showUnitWithOffset = !!(selectedCell?.cell.troop);
 
   useEffect(() => {
     infoModalStore.onRefresh();
@@ -40,11 +44,14 @@ const InfoModalContent = observer(() => {
   return (
     <VStack spacing={4} p="2" pb="1">
       <Heading size="lg" fontWeight="bold" textAlign="center">
+        <div style={{ width: 36, height: 36, position: "relative", display: "inline-block" }}>
+          <FlyingFlag color="black"/>
+        </div>
         {infoModalStore.getTitle}
       </Heading>
       {Object.keys(infoModalStore.getDescription).length > 0 && (
         <>
-          <Box w="full">{objectToJSX(infoModalStore.getDescription, 0)}</Box>
+          <Box w="full">{objectToJSXWithIcons(infoModalStore.getDescription, 0, showUnitWithOffset)}</Box>
 
           {selectedTroop &&
             isTeamTurn &&
