@@ -51,7 +51,7 @@ const InfoModalContent = observer(() => {
       </Heading>
       {Object.keys(infoModalStore.getDescription).length > 0 && (
         <>
-          <Box w="full">{objectToJSXWithIcons(infoModalStore.getDescription, 0, showUnitWithOffset)}</Box>
+          <Box w="full">{objectToJSXWithIcons(infoModalStore.getDescription, showUnitWithOffset)}</Box>
 
           {selectedTroop &&
             isTeamTurn &&
