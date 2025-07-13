@@ -122,9 +122,6 @@ const RoundIndicator = () => {
                 hasStripe
                 isAnimated
               />
-              <Text fontSize="xs" color="gray.500" mt={1}>
-                {Math.max(0, Math.min(100, Math.round((timeRemaining / CONFIG.roundDuration) * 100)))}% restant
-              </Text>
             </Box>
           </VStack>
 
