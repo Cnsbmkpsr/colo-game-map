@@ -232,6 +232,11 @@ class MapStore {
   }
 
   getCell(x: number, y: number) {
+    if (x < 0 || x >= this.width || y < 0 || y >= this.height) {
+      console.warn(`getCell: Invalid coordinates (${x}, ${y})`);
+      return undefined;
+    }
+
     return this.mapData[y][x];
   }
 
@@ -256,6 +261,10 @@ class MapStore {
 
     const { position } = this.selectedCell;
     const cell = this.getCell(position.x, position.y);
+    if (!cell) {
+      console.warn(`refreshSelectedCell: No cell found at position (${position.x}, ${position.y})`);
+      return;
+    }
 
     runInAction(() => {
       this.setSelectedCell({
