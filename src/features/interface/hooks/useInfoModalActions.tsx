@@ -23,9 +23,7 @@ const useInfoModalActions = () => {
     mapStore.updateMap();
     mapStore.refreshSelectedCell();
 
-    setTimeout(async () => {
-      await mapStore.save();
-    }, 1000);
+    await mapStore.save();
   };
 
   const handleBuyInfantry = async () => {

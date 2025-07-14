@@ -5,6 +5,7 @@ import { troopStore } from "../../game/troopStore";
 const CancelActions = () => {
   const handleCancelMove = () => {
     troopStore.setIsTroopMoving(false);
+    troopStore.clearGhostTroop();
   };
 
   const handleCancelFightTroop = () => {
@@ -25,9 +26,9 @@ const CancelActions = () => {
           Cancel fight
         </Button>
       )}
-      {troopStore.getIsMoving && (
+      {troopStore.isTroopMoving && (
         <Button w="full" colorScheme="red" onClick={handleCancelMove}>
-          Cancel move
+          Annuler le déplacement
         </Button>
       )}
     </HStack>

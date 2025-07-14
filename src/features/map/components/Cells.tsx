@@ -42,6 +42,7 @@ function Cell({ x, y, data, ...rest }: CellArgs) {
 
           // Exit move mode
           troopStore.setIsTroopMoving(false);
+          document.body.style.cursor = "default";
         } else {
           alert(validationMessage);
         }
@@ -133,6 +134,7 @@ function Cells() {
           </mesh>
         ))}
 
+      {/* Render selected cell highlight */}
       {mapStore.selectedCell && (
         <group
           key="selected-cell-highlight"
@@ -255,6 +257,54 @@ function Cells() {
           </group>
         </group>
       )}
+
+      {/* Render available move positions for the selected troop (using Manhattan distance system) */}
+      {mapStore.selectedCell?.cell.troop
+          && troopStore.isTroopMoving
+          && troopStore.getSelectedTroop
+          && troopStore.getSelectedTroop.civ === adminStore.activeTeam
+          && troopStore.getAvailableMovePositions().map((pos) => (
+              <mesh
+                  key={`move-${pos.x}-${pos.y}`}
+                  position={[
+                    pos.x === 0 ? pos.x : pos.x + 0.025 * pos.x,
+                    0.05,
+                    pos.y === 0 ? pos.y : pos.y + 0.025 * pos.y
+                  ]}
+              >
+                <boxGeometry args={[1, 0.1, 1]} />
+                <meshPhongMaterial
+                    color="rgba(0, 255, 0, 0.3)"
+                    transparent
+                    opacity={0.3}
+                />
+              </mesh>
+          ))}
+
+      {/* Render paths for moved troops, from their current position, to their new ghost posisiton, if it's the playing team */}
+        {adminStore.loggedInTeam === adminStore.activeTeam &&
+            Object.entries(troopStore.getGhostTroop).map(([unitId, pos]) => {
+            const troop = troopStore.getTroop(unitId);
+            if (!troop) return null;
+
+            return (
+                <mesh
+                key={`ghost-${unitId}`}
+                position={[
+                    pos.x === 0 ? pos.x : pos.x + 0.025 * pos.x,
+                    0.05,
+                    pos.y === 0 ? pos.y : pos.y + 0.025 * pos.y,
+                ]}
+                >
+                <boxGeometry args={[1, 0.1, 1]} />
+                <meshPhongMaterial
+                    color="rgba(255, 0, 0, 0.3)"
+                    transparent
+                    opacity={0.3}
+                />
+                </mesh>
+            );
+            })}
     </Instances>
   );
 }

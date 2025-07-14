@@ -14,6 +14,7 @@ import { factionStore } from "./factionStore";
 class TroopStore {
   fightingTroop: Troop | undefined = undefined;
   isTroopMoving = false;
+  movingTroopId: string | number | null = null;
 
   constructor() {
     makeAutoObservable(this);
@@ -28,19 +29,16 @@ class TroopStore {
 
     this.troops.forEach((troop) => {
       if (troop.civ === activeTeam) {
-        if (
-          troopGhostHandling.ghostTroop &&
-          troopGhostHandling.ghostPosition &&
-          troopGhostHandling.ghostTroop.id === troop.id
-        ) {
-          troopMovement.validateMoveTroop(
-            troop.id,
-            troopGhostHandling.ghostPosition
-          );
+
+        for (const [key, ghostTroop] of troopGhostHandling.ghostTroops.entries()) {
+          if (ghostTroop.id === troop.id) {
+
+            const [x, y] = key.split(",").map(Number);
+            troopMovement.validateMoveTroop(troop.id, { x, y });
+          }
         }
       }
     });
-
     troopGhostHandling.clearGhostTroop();
   }
 
@@ -151,8 +149,12 @@ class TroopStore {
     return null;
   }
 
-  setIsTroopMoving(isMoving: boolean) {
+  setIsTroopMoving(isMoving: boolean, id: string | number | null = null) {
     this.isTroopMoving = isMoving;
+    if (!isMoving)
+        this.movingTroopId = null;
+    else
+        this.movingTroopId = id;
   }
 
   setGhostTroop(id: Troop["id"], position: Position) {
@@ -188,6 +190,15 @@ class TroopStore {
     return this.troops.some(
       (troop) =>
         troop.position.x === position.x && troop.position.y === position.y
+    );
+  }
+
+  get getSelectedTroop() {
+    const position = mapStore.selectedCell?.position;
+    if (!position) return undefined;
+
+    return this.troops.find(
+      (troop) => troop.position.x === position.x && troop.position.y === position.y
     );
   }
 
@@ -244,7 +255,32 @@ class TroopStore {
   }
 
   get getGhostTroop() {
-    return troopGhostHandling.ghostTroop;
+    return troopGhostHandling.ghostTroops;
+  }
+
+  getAvailableMovePositions() {
+    const troop = this.getTroop(this.movingTroopId as string | number);
+    if (!troop) return [];
+
+    const unitConfig = UNITS_CONFIG[troop.type];
+    const availablePositions: Position[] = [];
+
+    for (let x = -unitConfig.vitDep; x <= unitConfig.vitDep; x++) {
+      for (let y = -unitConfig.vitDep; y <= unitConfig.vitDep; y++) {
+        if (Math.abs(x) + Math.abs(y) <= unitConfig.vitDep) {
+          let targetX = troop.position.x + x;
+          let targetY = troop.position.y + y;
+          if (!mapStore.isCellLanded(targetX, targetY) && !mapStore.isCellOccupied(targetX, targetY)) {
+            availablePositions.push({
+              x: targetX,
+              y: targetY,
+            });
+          }
+        }
+      }
+    }
+
+    return availablePositions;
   }
 }
 

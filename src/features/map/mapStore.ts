@@ -268,6 +268,16 @@ class MapStore {
   get getSelectedCell() {
     return this.selectedCell;
   }
+
+  isCellLanded(x: number, y: number): boolean {
+    const cell = this.getCell(x, y);
+    return !!cell.owner;
+  }
+
+  isCellOccupied(x: number, y: number): boolean {
+    const cell = this.getCell(x, y);
+    return !!cell.troop || !!cell.ghostPosition;
+  }
 }
 
 const mapStore = new MapStore();

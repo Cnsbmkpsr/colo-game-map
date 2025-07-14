@@ -20,8 +20,14 @@ const InfoModalContent = observer(() => {
   const [selectedTroop, setSelectedTroop] = useState(selectedCell?.cell.troop);
 
   const handleMoveUnit = () => {
-    troopStore.setIsTroopMoving(true);
+    troopStore.setIsTroopMoving(true, selectedTroop?.id || null);
+    document.body.style.cursor = "crosshair";
   };
+
+  const handleCancelMoveUnit = () => {
+    troopStore.setIsTroopMoving(false);
+    document.body.style.cursor = "default";
+  }
 
   useEffect(() => {
     const disposer = autorun(() => {
@@ -33,7 +39,7 @@ const InfoModalContent = observer(() => {
   }, []);
 
   const isTeamTurn = adminStore.loggedInTeam === adminStore.activeTeam;
-  
+
   // Détermine si on affiche une unité avec décalage (tuile sélectionnée + troupe présente)
   const showUnitWithOffset = !!selectedCell?.cell.troop;
 
@@ -65,22 +71,31 @@ const InfoModalContent = observer(() => {
             )}
           </Box>
 
-          {selectedTroop &&
-            isTeamTurn &&
-            selectedTroop.civ === adminStore.activeTeam && (
-              <Button onClick={handleMoveUnit} colorScheme="blue">
-                Déplacer l&apos;unitée
-              </Button>
-            )}
+            {selectedTroop &&
+                isTeamTurn &&
+                selectedTroop.civ === adminStore.activeTeam &&
+                !troopStore.isTroopMoving && (
+                    <Button onClick={handleMoveUnit} colorScheme="blue">
+                        Déplacer l&apos;unitée
+                    </Button>
+                )}
+
+            {selectedTroop &&
+                isTeamTurn &&
+                selectedTroop.civ === adminStore.activeTeam &&
+                troopStore.isTroopMoving && (
+                    <Button onClick={handleCancelMoveUnit} colorScheme="red">
+                        Annuler le déplacement
+                    </Button>
+                )}
         </>
       )}
 
       {landStore.isOwnedByCurrentFaction && (
-        <>
           <InfoModalOwnedLandActions />
-          <InfoModalTroopActions />
-        </>
       )}
+
+      <InfoModalTroopActions />
 
       {factionStore.getSelectedFaction !== null && !landStore.isOwned && (
         <InfoModalBuyLandAction
