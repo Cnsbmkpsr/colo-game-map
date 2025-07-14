@@ -91,7 +91,7 @@ const InfoModalContent = observer(() => {
         </>
       )}
 
-      {landStore.isOwnedByCurrentFaction && (
+      {landStore.isOwned && (
           <InfoModalOwnedLandActions />
       )}
 

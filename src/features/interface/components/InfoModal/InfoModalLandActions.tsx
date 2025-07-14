@@ -1,23 +1,21 @@
 import { Button, VStack } from "@chakra-ui/react";
 import useInfoModalActions from "../../hooks/useInfoModalActions";
-import { factionStore } from "../../../game/factionStore";
 import { observer } from "mobx-react";
+import {mapStore} from "../../../map/mapStore.ts";
 
 const InfoModalOwnedLandActions = () => {
   const { handleRemoveLand } = useInfoModalActions();
   return (
     <VStack spacing={1} w="full">
-      {factionStore.getSelectedFaction !== null && (
-        <Button
+      <Button
           w="full"
-          border={`2px solid ${factionStore.getSelectedFaction.color}`}
+          border={`2px solid ${mapStore.selectedCell?.cell.owner?.faction?.color || "black"}`}
           color={"black"}
           bg="transparent"
           onClick={handleRemoveLand}
-        >
-          Remove Land
-        </Button>
-      )}
+      >
+        Remove Land
+      </Button>
     </VStack>
   );
 };
