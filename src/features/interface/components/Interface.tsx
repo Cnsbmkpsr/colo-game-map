@@ -3,6 +3,7 @@ import InfoModal from "./InfoModal/InfoModal";
 import FactionMenu from "./FactionMenu";
 import CancelActions from "./CancelActions";
 import SaveButton from "./SaveButton";
+import PurgeButton from "./PurgeButton";
 import { adminStore } from "../adminStore";
 import { useEffect } from "react";
 import PasswordModal from "./PasswordModal";
@@ -68,6 +69,10 @@ const Interface = () => {
 
               <GridItem>
                 <SaveButton />
+              </GridItem>
+
+              <GridItem>
+                <PurgeButton />
               </GridItem>
 
               <GridItem>
