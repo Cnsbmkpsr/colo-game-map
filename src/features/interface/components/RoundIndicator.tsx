@@ -84,7 +84,7 @@ const RoundIndicator = () => {
       } else {
         adminStore.loadState();
       }
-    }, 500);
+    }, 200);
 
     return () => clearInterval(interval);
   }, []);
