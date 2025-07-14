@@ -140,7 +140,6 @@ class AdminStore {
     const state = {
       isPaused: this.isPaused,
       activeTeamIndex: this.activeTeamIndex,
-      // roundStartTime: this.roundStartTime,
       remainingTime: remainingTime,
     };
     this.realtimeService.set(JSON.stringify(state));
@@ -155,7 +154,6 @@ class AdminStore {
       runInAction(() => {
         this.isPaused = state.isPaused;
         this.activeTeamIndex = state.activeTeamIndex;
-        // this.roundStartTime = state.roundStartTime;
         this.remainingTime = state.remainingTime;
       });
     }

@@ -84,6 +84,7 @@ const RoundIndicator = () => {
       } else {
         adminStore.loadState();
       }
+      console.info("Master: ", adminStore.leaderSessionId, " - Current: ", adminStore.sessionId);
     }, 200);
 
     return () => clearInterval(interval);
