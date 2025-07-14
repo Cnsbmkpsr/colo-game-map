@@ -105,6 +105,7 @@ class AdminStore {
 
       this.activeTeamIndex = (this.activeTeamIndex + 1) % CONFIG.teams.length;
       this.remainingTime = CONFIG.roundDuration;
+      remainingTime = CONFIG.roundDuration;
       this.roundStartTime = Date.now();
       this.syncState(); // Synchronize state with the backend
     });
