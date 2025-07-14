@@ -59,6 +59,7 @@ const RoundIndicator = () => {
       } else {
         setTimeRemaining(adminStore.remainingTime);
       }
+      console.log("Time remaining:", timeRemaining);
     }, 1000);
 
     return () => clearInterval(interval);

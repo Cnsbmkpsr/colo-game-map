@@ -90,7 +90,7 @@ class AdminStore {
   }
 
   runRounds() {
-    if (this.isPaused) return;
+    if (this.isPaused || !this.isMasterSession) return;
 
     this.roundStartTime = Date.now();
     this.roundTimer = setTimeout(() => {
