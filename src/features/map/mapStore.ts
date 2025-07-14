@@ -271,11 +271,17 @@ class MapStore {
 
   isCellLanded(x: number, y: number): boolean {
     const cell = this.getCell(x, y);
+    if (!cell)
+      return false;
+
     return !!cell.owner;
   }
 
   isCellOccupied(x: number, y: number): boolean {
     const cell = this.getCell(x, y);
+    if (!cell)
+      return false;
+
     return !!cell.troop || !!cell.ghostPosition;
   }
 }
