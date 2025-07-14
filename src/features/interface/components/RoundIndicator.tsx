@@ -49,7 +49,7 @@ const RoundIndicator = () => {
     adminStore.loadState();
     const interval = setInterval(() => {
       adminStore.loadState();
-    }, 5000);
+    }, 1000);
     return () => clearInterval(interval);
   }, []);
 

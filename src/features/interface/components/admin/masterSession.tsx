@@ -9,13 +9,7 @@ function MasterSession() {
     adminStore.beMasterSession();
   };
 
-  console.log(
-    "Master session status:",
-    adminStore.sessionId,
-    adminStore.leaderSessionId
-  );
-
-  return adminStore.leaderSessionId === adminStore.sessionId ? (
+  return adminStore.isMasterSession ? (
     <Button
       w="full"
       colorScheme="yellow"

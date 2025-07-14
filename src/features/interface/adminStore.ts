@@ -41,7 +41,6 @@ class AdminStore {
 
   beMasterSession() {
     runInAction(async () => {
-      console.log("Becoming master session with ID:", this.sessionId);
       await this.leaderSessionIdService.set(this.sessionId);
     });
   }
@@ -57,6 +56,10 @@ class AdminStore {
 
   get getAdmin() {
     return this.isAdmin;
+  }
+
+  get isMasterSession(): boolean {
+    return this.leaderSessionId === this.sessionId;
   }
 
   startRounds() {
