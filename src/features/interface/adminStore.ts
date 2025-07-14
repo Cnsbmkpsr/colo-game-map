@@ -7,6 +7,8 @@ import { mapStore } from "../map/mapStore";
 
 const passwordCollection = new RealtimeService("password");
 
+let remainingTime = CONFIG.roundDuration; // Default round duration
+
 class AdminStore {
   isAdmin = false;
   isPaused = true;
@@ -45,14 +47,9 @@ class AdminStore {
     });
   }
 
-  // get getMasterSession(): boolean {
-  //   console.log("Checking master session status for ID:", this.sessionId);
-  //   runInAction(async () => {
-  //     this.masterSession =
-  //       (await this.leaderSessionIdService.read())?.data === this.sessionId;
-  //   });
-  //   return this.masterSession;
-  // }
+  setRemainingTime(time: number) {
+    remainingTime = time;
+  }
 
   get getAdmin() {
     return this.isAdmin;
@@ -142,8 +139,8 @@ class AdminStore {
     const state = {
       isPaused: this.isPaused,
       activeTeamIndex: this.activeTeamIndex,
-      roundStartTime: this.roundStartTime,
-      remainingTime: this.remainingTime,
+      // roundStartTime: this.roundStartTime,
+      remainingTime: remainingTime,
     };
     this.realtimeService.set(JSON.stringify(state));
   }
@@ -157,7 +154,7 @@ class AdminStore {
       runInAction(() => {
         this.isPaused = state.isPaused;
         this.activeTeamIndex = state.activeTeamIndex;
-        this.roundStartTime = state.roundStartTime;
+        // this.roundStartTime = state.roundStartTime;
         this.remainingTime = state.remainingTime;
       });
     }

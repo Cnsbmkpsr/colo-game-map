@@ -52,6 +52,7 @@ const RoundIndicator = () => {
         if (!adminStore.isPaused) {
           const elapsedTime = Date.now() - adminStore.roundStartTime;
           const remaining = adminStore.remainingTime - elapsedTime;
+          adminStore.setRemainingTime(Math.max(remaining, 0));
           setTimeRemaining(Math.max(remaining, 0));
         } else {
           setTimeRemaining(adminStore.remainingTime);
@@ -59,8 +60,31 @@ const RoundIndicator = () => {
       } else {
         setTimeRemaining(adminStore.remainingTime);
       }
-      console.log("Time remaining:", timeRemaining);
+      console.log(
+        "Time remaining:",
+        timeRemaining,
+        " - ",
+        adminStore.remainingTime
+      );
     }, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    if (adminStore.isMasterSession) {
+      adminStore.syncState();
+    } else {
+      adminStore.loadState();
+    }
+
+    const interval = setInterval(() => {
+      if (adminStore.isMasterSession) {
+        adminStore.syncState();
+      } else {
+        adminStore.loadState();
+      }
+    }, 500);
 
     return () => clearInterval(interval);
   }, []);
@@ -73,14 +97,6 @@ const RoundIndicator = () => {
   const displayedTeams = allTeams.slice(0, 3);
   // Les équipes restantes pour le collapse
   const remainingTeams = allTeams.slice(3);
-
-  useEffect(() => {
-    adminStore.loadState();
-    const interval = setInterval(() => {
-      adminStore.loadState();
-    }, 500);
-    return () => clearInterval(interval);
-  }, []);
 
   return (
     <Box
