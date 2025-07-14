@@ -51,7 +51,7 @@ function Cell({ x, y, data, ...rest }: CellArgs) {
     }
 
     if (troopStore.getFightingTroop) {
-      const targetTroop = mapStore.getCell(x, y).troop;
+      const targetTroop = mapStore.getCell(x, y)?.troop;
 
       if (!targetTroop) return;
       if (targetTroop.civ === troopStore.getFightingTroop.civ) return;

@@ -264,13 +264,20 @@ class TroopStore {
 
     const unitConfig = UNITS_CONFIG[troop.type];
     const availablePositions: Position[] = [];
+    const mapWidth = mapStore.width;
+    const mapHeight = mapStore.height;
 
     for (let x = -unitConfig.vitDep; x <= unitConfig.vitDep; x++) {
       for (let y = -unitConfig.vitDep; y <= unitConfig.vitDep; y++) {
         if (Math.abs(x) + Math.abs(y) <= unitConfig.vitDep) {
           let targetX = troop.position.x + x;
           let targetY = troop.position.y + y;
-          if (!mapStore.isCellLanded(targetX, targetY) && !mapStore.isCellOccupied(targetX, targetY)) {
+          if (
+            targetX >= 0 && targetX < mapWidth &&
+            targetY >= 0 && targetY < mapHeight &&
+            !mapStore.isCellLanded(targetX, targetY) &&
+            !mapStore.isCellOccupied(targetX, targetY)
+          ) {
             availablePositions.push({
               x: targetX,
               y: targetY,
