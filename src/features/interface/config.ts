@@ -15,17 +15,17 @@ export const CONFIG = {
     CIVILISATIONS.CHAOS,
   ] as Civilisation[],
   teamCredentials: {
-    [CIVILISATIONS.IMPERIUM]: { id: "team1", password: "team" },
-    [CIVILISATIONS.ORKS]: { id: "team2", password: "team" },
-    [CIVILISATIONS.ELDARS]: { id: "team3", password: "team" },
-    [CIVILISATIONS.MECHANICUS]: { id: "team4", password: "team" },
-    [CIVILISATIONS.NECRONS]: { id: "team5", password: "team" },
-    [CIVILISATIONS.TAU_EMPIRE]: { id: "team6", password: "team" },
-    [CIVILISATIONS.TYRANIDS]: { id: "team7", password: "team" },
+    [CIVILISATIONS.IMPERIUM]: {id: "team1", password: "K7X9M"},
+    [CIVILISATIONS.ORKS]: {id: "team2", password: "Z3K8W"},
+    [CIVILISATIONS.ELDARS]: {id: "team3", password: "M4Q6F"},
+    [CIVILISATIONS.MECHANICUS]: {id: "team4", password: "N2V5O"},
+    [CIVILISATIONS.NECRONS]: {id: "team5", password: "X6Y4T"},
+    [CIVILISATIONS.TAU_EMPIRE]: {id: "team6", password: "I9B3S"},
+    [CIVILISATIONS.TYRANIDS]: {id: "team7", password: "E8J7H"},
     [CIVILISATIONS.LEAGUES_OF_VOTANN]: {
       id: "team8",
-      password: "team",
+      password: "K5P2V",
     },
-    [CIVILISATIONS.CHAOS]: { id: "team9", password: "team" },
-  },
+    [CIVILISATIONS.CHAOS]: {id: "team9", password: "R1D4Q"},
+  }
 };
