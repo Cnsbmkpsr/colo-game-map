@@ -60,12 +60,12 @@ const RoundIndicator = () => {
       } else {
         setTimeRemaining(adminStore.remainingTime);
       }
-      console.log(
-        "Time remaining:",
-        timeRemaining,
-        " - ",
-        adminStore.remainingTime
-      );
+      // console.log(
+      //   "Time remaining:",
+      //   timeRemaining,
+      //   " - ",
+      //   adminStore.remainingTime
+      // );
     }, 1000);
 
     return () => clearInterval(interval);
@@ -84,7 +84,7 @@ const RoundIndicator = () => {
       } else {
         adminStore.loadState();
       }
-      console.info("Master: ", adminStore.leaderSessionId, " - Current: ", adminStore.sessionId);
+      //console.info("Master: ", adminStore.leaderSessionId, " - Current: ", adminStore.sessionId);
     }, 200);
 
     return () => clearInterval(interval);
