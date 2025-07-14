@@ -2,7 +2,7 @@ import { Civilisation } from "../game/types";
 import { CIVILISATIONS } from "../../shared/constants";
 
 export const CONFIG = {
-  roundDuration: 20000,
+  roundDuration: 10000,
   teams: [
     CIVILISATIONS.ELDARS,
     CIVILISATIONS.IMPERIUM,
