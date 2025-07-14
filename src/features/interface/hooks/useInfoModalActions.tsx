@@ -99,7 +99,10 @@ const useInfoModalActions = () => {
   };
 
   const handleMoveTroop = () => {
-    troopStore.setIsTroopMoving(true);
+    const troop = mapStore.getSelectedCell?.cell.troop;
+    if (!troop) return;
+    
+    troopStore.setIsTroopMoving(true, troop.id);
   };
 
   const handleFightTroop = () => {
